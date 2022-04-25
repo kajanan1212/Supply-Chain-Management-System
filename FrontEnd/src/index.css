@@ -12,17 +12,17 @@ code {
     monospace;
 }
 
-.navbar-bg{
-  background-color: #ceaff5;
+.navbar-bg {
+  background-color: #ceaff6;
 }
 
-.navbar-font{
+.navbar-font {
   color: #4A148C;
   font-weight: 900;
   font-style: italic;
   font-family: cursive;
 }
 
-.cc{
+.cc {
   background-color: #d9d0e4;
 }
