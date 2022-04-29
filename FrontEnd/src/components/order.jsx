@@ -16,7 +16,7 @@ class Order extends React.Component {
         return (
 
             <div className="col-4 p-4">
-                <div style={{ backgroundColor: "#d9d0e4" }} className="rounded border border- secondary border-2 m-3 p-3">
+                <div style={{ backgroundColor: "#d9d0e4" }} className="rounded border border-secondary border-2 m-3 p-3">
                     <dl className="row">
                         <dt className="col-5">OrderId</dt>
                         <dt className="col-1">:</dt>
@@ -27,7 +27,7 @@ class Order extends React.Component {
                         <dt className="col-5">Quantity</dt>
                         <dt className="col-1">:</dt>
                         <dd className="col-6">{quantity}</dd>
-                        <dt className="col-5">Capacity</dt>
+                        <dt className="col-5">Capacity (m<sup>3</sup>)</dt>
                         <dt className="col-1">:</dt>
                         <dd className="col-6">{capacity}</dd>
                         <dt className="col-5">Date</dt>
