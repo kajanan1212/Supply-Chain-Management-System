@@ -37,6 +37,11 @@ class FrontPage extends Component {
                 {this.state.carts.map(cart => (
                     <CartItem key={cart.id} cart={cart} handleRemoveFromCart={() => this.removeFromCart(cart)} onIncrement={() => this.handleIncrement(cart)} onDecrement={() => this.handleDecrement(cart)} />
                 ))}
+                <div className="row me-4">
+                    <div className="col-8"></div>
+                    <div className="col-2 h3">Total Price: Rs.{this.calculateAmount()}.00</div>
+                    <div className="col-2"><button className="btn btn-primary mb-2"><b>Buy Now</b></button></div>
+                </div>
             </React.Fragment>
 
         );
@@ -61,7 +66,6 @@ class FrontPage extends Component {
 
     findCartItemsValid = () => {
         const cartValid = this.state.carts.filter(cart => cart.count >= 0);
-        console.log(cartValid);
         return cartValid.length;
     }
 
@@ -79,6 +83,16 @@ class FrontPage extends Component {
         carts[index].count--;
         this.setState({ carts })
     }
+
+    calculateAmount = () => {
+        const carts = [...this.state.carts];
+        let sum = carts.reduce(function (prev, current) {
+            return prev + +(current.cost * current.count)
+        }, 0);
+        return sum;
+    }
+
+
 }
 
 export default FrontPage;
