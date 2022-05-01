@@ -1,32 +1,28 @@
 import React, { Component } from 'react';
 import Item from './item';
 import CartItem from './cartItem';
+import Axios from "axios";
 
 class FrontPage extends Component {
     state = {
-        items: [
-            { id: 1, title: 'Men\'s T- Shirt Neck Blue - Color', description: 'Super fit, long lasting, Color in Blue', cost: '1000', availability: true, brand: 'XYZ Company', location: "../../Images/blue-tshirt.jpg" },
-            { id: 2, title: 'Men\'s T- Shirt Neck Blue - Color', description: 'Super fit, long lasting, Color in Blue', cost: '2000', availability: true, brand: 'XYZ Company', location: "../../Images/blue-tshirt.jpg" },
-            { id: 3, title: 'Men\'s T- Shirt Neck Blue - Color', description: 'Super fit, long lasting, Color in Blue', cost: '2000', availability: true, brand: 'XYZ Company', location: "../../Images/blue-tshirt.jpg" },
-            { id: 4, title: 'Men\'s T- Shirt Neck Blue - Color', description: 'Super fit, long lasting, Color in Blue', cost: '2000', availability: true, brand: 'XYZ Company', location: "../../Images/blue-tshirt.jpg" },
-            { id: 5, title: 'Men\'s T- Shirt Neck Blue - Color', description: 'Super fit, long lasting, Color in Blue', cost: '2000', availability: true, brand: 'XYZ Company', location: "../../Images/blue-tshirt.jpg" },
-            { id: 6, title: 'Men\'s T- Shirt Neck Blue - Color', description: 'Super fit, long lasting, Color in Blue', cost: '2000', availability: true, brand: 'XYZ Company', location: "../../Images/blue-tshirt.jpg" },
-            { id: 7, title: 'Men\'s T- Shirt Neck Blue - Color', description: 'Super fit, long lasting, Color in Blue', cost: '2000', availability: true, brand: 'XYZ Company', location: "../../Images/blue-tshirt.jpg" },
-            { id: 8, title: 'Men\'s T- Shirt Neck Blue - Color', description: 'Super fit, long lasting, Color in Blue', cost: '3000', availability: true, brand: 'XYZ Company', location: "../../Images/blue-tshirt.jpg" },
-            { id: 9, title: 'Men\'s T- Shirt Neck Blue - Color', description: 'Super fit, long lasting, Color in Blue', cost: '4000', availability: true, brand: 'XYZ Company', location: "../../Images/blue-tshirt.jpg" }
-        ],
-        carts: [
-            { id: 9, title: 'Men\'s T- Shirt Neck Blue - Color', cost: '4000', availability: true, location: "../../Images/blue-tshirt.jpg", count: 1 }
-
-        ]
+        items: [],
+        carts: []
     }
+
+    async componentDidMount() {
+        Axios.get('http://localhost:3001/').then((response) => {
+            this.setState({ items: response.data })
+        })
+        // Axios.post('http://localhost:3001/api/insert',);
+    }
+
     render() {
         return (
             <React.Fragment>
                 <div >
                     <div className='row d-flex justify-content-center' style={{ margin: '30px' }}>
                         {this.state.items.map(item => (
-                            <Item key={item.id} item={item} handlePutToCart={() => this.putToCart(item)} />
+                            <Item key={item.product_id} item={item} handlePutToCart={() => this.putToCart(item)} />
                         ))}
                     </div>
                     <div style={{ width: '100%', minHeight: '50px', backgroundColor: 'purple', paddingLeft: '20px' }}>
@@ -35,7 +31,7 @@ class FrontPage extends Component {
                     </div>
                 </div>
                 {this.state.carts.map(cart => (
-                    <CartItem key={cart.id} cart={cart} handleRemoveFromCart={() => this.removeFromCart(cart)} onIncrement={() => this.handleIncrement(cart)} onDecrement={() => this.handleDecrement(cart)} />
+                    <CartItem key={cart.product_id} cart={cart} handleRemoveFromCart={() => this.removeFromCart(cart)} onIncrement={() => this.handleIncrement(cart)} onDecrement={() => this.handleDecrement(cart)} />
                 ))}
                 <div className="row me-4">
                     <div className="col-8"></div>
@@ -50,7 +46,7 @@ class FrontPage extends Component {
     putToCart = (item) => {
         const TempCart = this.state.carts;
         if (!TempCart.find(element => {
-            return element.id === item.id;
+            return element.product_id === item.product_id;
         })) {
             const newItem = { ...item, count: 1 }
             TempCart.push(newItem);
@@ -60,7 +56,7 @@ class FrontPage extends Component {
     }
 
     removeFromCart = (item) => {
-        const TempCart = this.state.carts.filter(cart => cart.id !== item.id);
+        const TempCart = this.state.carts.filter(cart => cart.product_id !== item.product_id);
         this.setState({ carts: TempCart })
     }
 
