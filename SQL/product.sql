@@ -1,3 +1,4 @@
+/* Showing results for SCMS-DB.xlsx */
 
 /* CREATE TABLE */
 CREATE TABLE product(

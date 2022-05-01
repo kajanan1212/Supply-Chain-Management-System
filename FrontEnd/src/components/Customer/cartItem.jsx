@@ -5,7 +5,7 @@ class CartItem extends Component {
     render() {
         return (
             <div className="row mt-4 mb-3 align-items-center" style={{ height: '150px', width: '100%', backgroundColor: '#999', fontFamily: 'times new roman' }}>
-                <div className="col-2"><img src={require("../../Images/blue-tshirt.jpg")} alt="adsakk" style={{ height: '140px', width: '100%', objectFit: 'contain' }} /></div>
+                <div className="col-2"> <img src={require('../../Images/' + this.props.cart.img)} alt="adsakk" style={{ height: '140px', width: '100%', objectFit: 'contain' }} /></div>
                 <div className="col-2 h3 fw-bold">{this.props.cart.title}</div>
                 <div className="col-2 h3">LKR:{this.props.cart.cost}.00</div>
                 <div className="col-2 h3">Quantity<span className="badge bg-secondary ms-2">{this.props.cart.count}</span></div>
