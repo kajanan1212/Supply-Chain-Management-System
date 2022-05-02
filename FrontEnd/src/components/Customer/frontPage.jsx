@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import Item from './item';
 import CartItem from './cartItem';
 import Axios from "axios";
+import Pagination from '../common/pagination';
+import { paginate } from '../common/paginate';
+
 
 class FrontPage extends Component {
     state = {
         items: [],
-        carts: []
+        carts: [],
+        pageSize: 9,
+        currentPage: 1
     }
 
     async componentDidMount() {
@@ -17,13 +22,18 @@ class FrontPage extends Component {
     }
 
     render() {
+        const { length: count } = this.state.items;
+        const items = paginate(this.state.items, this.state.currentPage, this.state.pageSize)
         return (
             <React.Fragment>
                 <div >
                     <div className='row d-flex justify-content-center' style={{ margin: '30px' }}>
-                        {this.state.items.map(item => (
+                        {items.map(item => (
                             <Item key={item.product_id} item={item} handlePutToCart={() => this.putToCart(item)} />
                         ))}
+                    </div>
+                    <div className="d-flex justify-content-end me-4">
+                        <Pagination itemCount={count} pageSize={this.state.pageSize} currentPage={this.state.currentPage} onPageChange={this.handlePageChange} />
                     </div>
                     <div style={{ width: '100%', minHeight: '50px', backgroundColor: 'purple', paddingLeft: '20px' }}>
                         <p className='m-3 text-info h2'>Cart <i className="fa fa-shopping-cart"></i> <span className='fw-normal text-light h5 '>Happy Shopping! Happy Customer!!</span></p>
@@ -36,7 +46,7 @@ class FrontPage extends Component {
                 <div className="row me-4">
                     <div className="col-8"></div>
                     <div className="col-2 h3">Total Price: Rs.{this.calculateAmount()}.00</div>
-                    <div className="col-2"><button className="btn btn-primary mb-2"><b>Buy Now</b></button></div>
+                    <div className="col-2"><button className="btn btn-primary mb-2" disabled={this.findCartItemsValid() === 0 ? 'ture' : ''}><b>Buy Now</b></button></div>
                 </div>
             </React.Fragment>
 
@@ -50,7 +60,6 @@ class FrontPage extends Component {
         })) {
             const newItem = { ...item, count: 1 }
             TempCart.push(newItem);
-            console.log(newItem);
         }
         this.setState({ carts: TempCart });
     }
@@ -61,7 +70,7 @@ class FrontPage extends Component {
     }
 
     findCartItemsValid = () => {
-        const cartValid = this.state.carts.filter(cart => cart.count >= 0);
+        const cartValid = this.state.carts.filter(cart => cart.count > 0);
         return cartValid.length;
     }
 
@@ -87,7 +96,9 @@ class FrontPage extends Component {
         }, 0);
         return sum;
     }
-
+    handlePageChange = page => {
+        this.setState({ currentPage: page });
+    };
 
 }
 
