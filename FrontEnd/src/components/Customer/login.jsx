@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Navbar from '../Navbar';
+import Axios from "axios";
 
 class Login extends Component {
     state = {
@@ -12,6 +13,21 @@ class Login extends Component {
     handlePasswordChange = (e) => {
         this.setState({ password: e.target.value });
     }
+    onFormSubmit = (e) => {
+        if (!this.state.email) {
+            alert("Enter Email");
+            return;
+        }
+        if (!this.state.password) {
+            alert("Enter password");
+            return;
+        }
+        e.preventDefault();
+        Axios.post('http://localhost:3001/login', { email: this.state.email, password: this.state.password })
+            .catch(err => alert('Something went wrong'))
+        // .then(window.location.reload())
+    }
+
     render() {
         return (
             <div>
@@ -29,7 +45,7 @@ class Login extends Component {
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="" className="form-label">Password</label>
-                                        <input type="text" className="form-control" value={this.state.password} onChange={this.handlePasswordChange} />
+                                        <input type="password" className="form-control" value={this.state.password} onChange={this.handlePasswordChange} />
                                     </div>
                                     <button type="submit" onClick={this.onFormSubmit} className="btn btn-primary">Submit</button>
                                 </form>
@@ -37,14 +53,8 @@ class Login extends Component {
                         </div>
                     </div>
                 </div>
-
             </div >
         );
-
-    }
-    onFormSubmit = (e) => {
-        e.preventDefault()
-        console.log(this.state)
     }
 }
 

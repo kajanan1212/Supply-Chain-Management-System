@@ -17,9 +17,16 @@ class FrontPage extends Component {
     async componentDidMount() {
         Axios.get('http://localhost:3001/').then((response) => {
             this.setState({ items: response.data })
-        })
-        // Axios.post('http://localhost:3001/api/insert',);
+            // Axios.post('http://localhost:3001/api/insert',);
+        });
     }
+
+    handleBuyNow = (dataa) => {
+        Axios.post('http://localhost:3001/', dataa)
+            .catch(err => alert('Something went wrong'))
+            .then(window.location.reload())
+    }
+
 
     render() {
         const { length: count } = this.state.items;
@@ -46,7 +53,7 @@ class FrontPage extends Component {
                 <div className="row me-4">
                     <div className="col-8"></div>
                     <div className="col-2 h3">Total Price: Rs.{this.calculateAmount()}.00</div>
-                    <div className="col-2"><button className="btn btn-primary mb-2" disabled={this.findCartItemsValid() === 0 ? 'ture' : ''}><b>Buy Now</b></button></div>
+                    <div className="col-2"><button className="btn btn-primary mb-2" disabled={this.findCartItemsValid() === 0 ? 'ture' : ''} onClick={() => this.handleBuyNow(this.state.carts)}><b>Buy Now</b></button></div>
                 </div>
             </React.Fragment>
 
@@ -99,7 +106,6 @@ class FrontPage extends Component {
     handlePageChange = page => {
         this.setState({ currentPage: page });
     };
-
 }
 
 export default FrontPage;

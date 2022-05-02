@@ -12,8 +12,8 @@ class Item extends Component {
                         <p>{this.props.item.description}</p>
 
                         <p>LKR: {this.props.item.cost}.00</p>
-                        <p>Availability: {this.props.item.available}</p>
-                        <button className="btn btn-warning mt-3 ms-5" onClick={this.props.handlePutToCart}>Add to Cart</button>
+                        <p>Available Items: {this.props.item.quantity}</p>
+                        <button className="btn btn-warning mt-3 ms-5" disabled={this.props.item.quantity === 0 ? 'ture' : ''} onClick={this.props.handlePutToCart}>Add to Cart</button>
                     </div>
                     <div className="col-5">
                         <img src={require('../../Images/' + this.props.item.img)} alt="adsakk" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />

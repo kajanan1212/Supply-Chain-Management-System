@@ -10,10 +10,10 @@ class CartItem extends Component {
                 <div className="col-2 h3">LKR:{this.props.cart.cost}.00</div>
                 <div className="col-2 h3">Quantity<span className="badge bg-secondary ms-2">{this.props.cart.count}</span></div>
                 <div className="col-4">
-                    <button className="btn-sm btn-success btn" onClick={this.props.onIncrement}><i className="fa fa-plus" ></i></button>
+                    <button className="btn-sm btn-success btn" onClick={this.props.onIncrement} disabled={this.props.cart.count === this.props.cart.quantity ? 'ture' : ''} ><i className="fa fa-plus" ></i></button>
                     <button className="btn-sm btn-success btn ms-3" onClick={this.props.onDecrement} disabled={this.props.cart.count === 0 ? 'ture' : ''}> <i className="fa fa-minus"></i></button>
                     <button className="btn btn-danger ms-3" onClick={this.props.handleRemoveFromCart}>Remove Item</button></div>
-            </div >
+            </div>
         );
     }
 }
