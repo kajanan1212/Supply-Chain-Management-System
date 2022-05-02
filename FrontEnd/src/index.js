@@ -3,28 +3,35 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Routes, Route, Redirect } from 'react-router-dom';
 import 'font-awesome/css/font-awesome.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import "bootstrap/js/src/collapse.js";
 import Navbar from './components/Navbar';
 import Footer from './components/footer';
-import Route from './components/route';
+// import TruckRoute from './components/route';
 import Orders from './components/orders';
 import TrainSchedule from './components/Train/schedule';
 import FrontPage from './components/Customer/frontPage';
+import Login from './components/Customer/login';
 
 
 ReactDOM.render(
-  <React.Fragment>
+  <BrowserRouter>
     <Navbar />
     {/* <div className="container">
-      <Route />
+      {/* <TruckRoute />
     </div>
     <Orders />
     <TrainSchedule /> */}
-    <FrontPage />
+    <Routes>
+      <Route path='/trainschedule' element={<TrainSchedule />} />
+      <Route path='/' element={<FrontPage />} />
+      <Route path='/login' element={<Login />} />
+    </Routes>
+    {/* <FrontPage /> */}
     <Footer />
-  </React.Fragment>,
+  </BrowserRouter>,
 
   document.getElementById('root')
 );

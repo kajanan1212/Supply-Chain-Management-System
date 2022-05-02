@@ -13,7 +13,6 @@ class Item extends Component {
 
                         <p>LKR: {this.props.item.cost}.00</p>
                         <p>Availability: {this.props.item.available}</p>
-                        <p>Brand: {this.props.item.brand}</p>
                         <button className="btn btn-warning mt-3 ms-5" onClick={this.props.handlePutToCart}>Add to Cart</button>
                     </div>
                     <div className="col-5">
