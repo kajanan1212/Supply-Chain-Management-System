@@ -3,35 +3,31 @@ import axios from "axios";
 // const API_URL = "/auth";
 // const API_URL = "/auth";
 
-// const signup = (email, password) => {
-//     return axios
-//         .post(API_URL + "/signup", {
-//             email,
-//             password,
-//         })
-//         .then((response) => {
-//             if (response.data.accessToken) {
-//                 localStorage.setItem("user", JSON.stringify(response.data));
-//             }
 
-//             return response.data;
-//         });
-// };
+const signup = (email, first_name, last_name, password, confirmpassword, phone_num) => {
+    return axios
+        .post("http://localhost:3001/signup", { email, first_name, last_name, password, confirmpassword, phone_num })
+        .then((response) => {
+            window.location = '/login';
+        });
+};
 
 const login = (email, password) => {
     return axios.post('http://localhost:3001/login', { email, password })
         .then((response) => {
             if (response.data.accessToken) {
-                console.log(response.data)
-                localStorage.setItem('user', JSON.stringify(response.data));
-                // window.location = '/';
 
-            } return response.data
-        })
+                localStorage.setItem('user', JSON.stringify(response.data));
+            }
+        }).catch(err => alert('Username or Password wrong'))
+
 };
 
 const logout = () => {
     localStorage.removeItem("user");
+
+    window.location = '/login';
+
 };
 
 const getCurrentUser = () => {
@@ -39,7 +35,7 @@ const getCurrentUser = () => {
 };
 
 const authService = {
-    // signup,
+    signup,
     login,
     logout,
     getCurrentUser,

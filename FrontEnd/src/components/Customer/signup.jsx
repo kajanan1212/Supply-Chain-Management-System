@@ -1,84 +1,74 @@
 import React, { Component } from 'react';
+import authService from '../service/auth.service';
 
 class Signup extends Component {
-    state = { 
+    state = {
         email: "",
-        firstName: "",
-        lastName: "",
-        phoneNo: "",
-        address: "",
-        pastword: "",
-        confirmPassword: ""
+        first_name: "",
+        last_name: "",
+        phone_num: "",
+        password: "",
+        confirmpassword: ""
     }
+    onFormSubmit = async (e) => {
+        if (!this.state.email) {
+            alert("Enter Email");
+            return;
+        }
+
+        if (!this.state.first_name) {
+            alert("Enter First Name");
+            return;
+        }
+        if (!this.state.last_name) {
+            alert("Enter Last Name");
+            return;
+        }
+        if (!this.state.phone_num) {
+            alert("Enter Phone Number");
+            return;
+        }
+
+        if (!this.state.password) {
+            alert("Enter Password");
+            return;
+        }
+
+        if (!this.state.confirmpassword) {
+            alert("Enter Confirm Password");
+            return;
+        }
+        e.preventDefault();
+        const { email, first_name, last_name, password, confirmpassword, phone_num } = this.state;
+        await authService.signup(email, first_name, last_name, password, confirmpassword, phone_num).then(
+            window.location = '/login').catch(error => console.log(err))
+    }
+
     handleEmailChange = (e) => {
         this.setState({ email: e.target.value });
     }
     handleFirstNameChange = (e) => {
-        this.setState({ firstName: e.target.value });
+        this.setState({ first_name: e.target.value });
     }
     handleLastNameChange = (e) => {
-        this.setState({ lastName: e.target.value });
+        this.setState({ last_name: e.target.value });
     }
     handlePhoneNoChange = (e) => {
-        this.setState({ phoneNo: e.target.value });
-    }
-    handleAddressChange = (e) => {
-        this.setState({ address: e.target.value });
+        this.setState({ phone_num: e.target.value });
     }
     handlePasswordChange = (e) => {
         this.setState({ password: e.target.value });
     }
     handleConfirmPasswordChange = (e) => {
-        this.setState({ confirmPassword: e.target.value });
+        this.setState({ confirmpassword: e.target.value });
     }
 
-    onFormSubmit = (e) => {
-        // if (this.state.confirmPassword == this.state.password) {
-        //     alert("Password not match");
-        //     return;
-        // }
-        if (!this.state.email) {
-            alert("Enter Email");
-            return;
-        }
-        if (!this.state.firstName) {
-            alert("Enter First Name");
-            return;
-        }
-        if (!this.state.lastName) {
-            alert("Enter Last Name");
-            return;
-        }
-        if (!this.state.phoneNo) {
-            alert("Enter Phone Number");
-            return;
-        }
-        if (!this.state.address) {
-            alert("Enter Address");
-            return;
-        }
-        if (!this.state.password) {
-            alert("Enter Password");
-            return;
-        }
-        if (!this.state.confirmPassword) {
-            alert("Enter Confirm Password");
-            return;
-        }
-        
-        // e.preventDefault();
-        // Axios.post('http://localhost:3001/login', { email: this.state.email, password: this.state.password })
-        //     .catch(err => alert('Something went wrong'))
-        
-    }
-
-
-
-    render() { 
+    render() {
         return (
             <div>
                 <div className='d-flex justify-content-center'>
-                    <div className="card" style={{ margin: '100px', width: '50%' }}>
+                    <div className="card" style={{ margin: '47px', width: '50%' }}>
+
                         <div className="card-body">
                             <div className="card-title">
                                 <h1 className='text-primary'>Signup</h1>
@@ -91,19 +81,17 @@ class Signup extends Component {
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="" className="form-label">First Name</label>
-                                        <input type="text" className="form-control" value={this.state.firstName} onChange={this.handleFirstNameChange} />
+
+                                        <input type="text" className="form-control" value={this.state.first_name} onChange={this.handleFirstNameChange} />
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="" className="form-label">Last Name</label>
-                                        <input type="text" className="form-control" value={this.state.lastName} onChange={this.handleLastNameChange} />
+                                        <input type="text" className="form-control" value={this.state.last_name} onChange={this.handleLastNameChange} />
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="" className="form-label">Phone Number</label>
-                                        <input type="text" className="form-control" value={this.state.phoneNo} onChange={this.handlePhoneNoChange} />
-                                    </div>
-                                    <div className="mb-3">
-                                        <label htmlFor="" className="form-label">Address</label>
-                                        <input type="text" className="form-control" value={this.state.address} onChange={this.handleAddressChange} />
+                                        <input type="text" className="form-control" value={this.state.phone_num} onChange={this.handlePhoneNoChange} />
+
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="" className="form-label">Password</label>
@@ -111,16 +99,19 @@ class Signup extends Component {
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="" className="form-label">Confirm Password</label>
-                                        <input type="password" className="form-control" value={this.state.confirmPassword} onChange={this.handleConfirmPasswordChange} />
+
+                                        <input type="password" className="form-control" value={this.state.confirmpassword} onChange={this.handleConfirmPasswordChange} />
+
                                     </div>
 
                                     <div>
                                         <label htmlFor="" className="form-label">Profile Image</label>
-                                        <input type="file" className="form-control" />
+                                        <input type="file" className="form-control" disabled />
 
                                     </div>
 
-                                    <button type="submit" onClick={this.onFormSubmit} className="btn mt-3 btn-primary">Signup</button>
+                                    <button type="submit" onClick={this.onFormSubmit} className="btn mt-3 btn-primary mt-4">Signup</button>
+
                                 </form>
                             </div>
                         </div>
@@ -130,5 +121,4 @@ class Signup extends Component {
         );
     }
 }
- 
 export default Signup;
