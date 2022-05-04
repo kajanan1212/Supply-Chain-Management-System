@@ -14,6 +14,10 @@ import Orders from './components/orders';
 import TrainSchedule from './components/Train/schedule';
 import FrontPage from './components/Customer/frontPage';
 import Login from './components/Customer/login';
+import Signup from './components/Customer/signup';
+import RegisterManager from './components/Admin/registerManager';
+import RegisterWorker from './components/Manager/registerWorker';
+
 
 
 ReactDOM.render(
@@ -28,6 +32,10 @@ ReactDOM.render(
       <Route path='/trainschedule' element={<TrainSchedule />} />
       <Route path='/' element={<FrontPage />} />
       <Route path='/login' element={<Login />} />
+      <Route path='/signup' element={<Signup />} />
+      <Route path='/registerManager' element={<RegisterManager />} />
+      <Route path='/registerWorker' element={<RegisterWorker />} />
+
     </Routes>
     {/* <FrontPage /> */}
     <Footer />
