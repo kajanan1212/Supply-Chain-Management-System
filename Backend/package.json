@@ -16,7 +16,10 @@
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.18.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
     "mysql": "^2.18.1",
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "react-navigation-hooks": "^1.1.0"
   }
 }
