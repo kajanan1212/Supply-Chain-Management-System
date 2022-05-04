@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Item from './item';
 import CartItem from './cartItem';
-import Axios from "axios";
 import Pagination from '../common/pagination';
 import { paginate } from '../common/paginate';
+import customerServices from '../service/customer.service'
+import authService from '../service/auth.service';
 
 
 class FrontPage extends Component {
@@ -15,14 +16,14 @@ class FrontPage extends Component {
     }
 
     async componentDidMount() {
-        Axios.get('http://localhost:3001/').then((response) => {
+        customerServices.getAllProduct().then((response) => {
             this.setState({ items: response.data })
             // Axios.post('http://localhost:3001/api/insert',);
         });
     }
 
     handleBuyNow = (dataa) => {
-        Axios.post('http://localhost:3001/', dataa)
+        customerServices.handleBuyNow(dataa)
             .catch(err => alert('Something went wrong'))
             .then(window.location.reload())
     }
@@ -32,7 +33,7 @@ class FrontPage extends Component {
         const { length: count } = this.state.items;
         const items = paginate(this.state.items, this.state.currentPage, this.state.pageSize)
         return (
-            <React.Fragment>
+            <div>
                 <div >
                     <div className='row d-flex justify-content-center' style={{ margin: '30px' }}>
                         {items.map(item => (
@@ -55,7 +56,7 @@ class FrontPage extends Component {
                     <div className="col-2 h3">Total Price: Rs.{this.calculateAmount()}.00</div>
                     <div className="col-2"><button className="btn btn-primary mb-2" disabled={this.findCartItemsValid() === 0 ? 'ture' : ''} onClick={() => this.handleBuyNow(this.state.carts)}><b>Buy Now</b></button></div>
                 </div>
-            </React.Fragment>
+            </div>
 
         );
     }
