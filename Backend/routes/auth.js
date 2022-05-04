@@ -3,9 +3,10 @@ const router = express.Router();
 const db = require('../util/database');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const bodyParser = require("body-parser");
 
+const bodyParser = require("body-parser");
 require("dotenv").config();
+
 const app = express();
 app.use(bodyParser.json())
 

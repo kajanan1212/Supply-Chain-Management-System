@@ -10,12 +10,12 @@ class Signup extends Component {
         password: "",
         confirmpassword: ""
     }
-
     onFormSubmit = async (e) => {
         if (!this.state.email) {
             alert("Enter Email");
             return;
         }
+
         if (!this.state.first_name) {
             alert("Enter First Name");
             return;
@@ -28,10 +28,12 @@ class Signup extends Component {
             alert("Enter Phone Number");
             return;
         }
+
         if (!this.state.password) {
             alert("Enter Password");
             return;
         }
+
         if (!this.state.confirmpassword) {
             alert("Enter Confirm Password");
             return;
@@ -66,6 +68,7 @@ class Signup extends Component {
             <div>
                 <div className='d-flex justify-content-center'>
                     <div className="card" style={{ margin: '47px', width: '50%' }}>
+
                         <div className="card-body">
                             <div className="card-title">
                                 <h1 className='text-primary'>Signup</h1>
@@ -78,6 +81,7 @@ class Signup extends Component {
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="" className="form-label">First Name</label>
+
                                         <input type="text" className="form-control" value={this.state.first_name} onChange={this.handleFirstNameChange} />
                                     </div>
                                     <div className="mb-3">
@@ -87,6 +91,7 @@ class Signup extends Component {
                                     <div className="mb-3">
                                         <label htmlFor="" className="form-label">Phone Number</label>
                                         <input type="text" className="form-control" value={this.state.phone_num} onChange={this.handlePhoneNoChange} />
+
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="" className="form-label">Password</label>
@@ -94,7 +99,9 @@ class Signup extends Component {
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="" className="form-label">Confirm Password</label>
+
                                         <input type="password" className="form-control" value={this.state.confirmpassword} onChange={this.handleConfirmPasswordChange} />
+
                                     </div>
 
                                     <div>
@@ -104,6 +111,7 @@ class Signup extends Component {
                                     </div>
 
                                     <button type="submit" onClick={this.onFormSubmit} className="btn mt-3 btn-primary mt-4">Signup</button>
+
                                 </form>
                             </div>
                         </div>
@@ -113,5 +121,4 @@ class Signup extends Component {
         );
     }
 }
-
 export default Signup;
