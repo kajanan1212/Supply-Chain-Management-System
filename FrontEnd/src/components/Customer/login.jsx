@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Navbar from '../Navbar';
-import Axios from "axios";
+import authService from '../service/auth.service';
 
 class Login extends Component {
     state = {
@@ -13,7 +12,7 @@ class Login extends Component {
     handlePasswordChange = (e) => {
         this.setState({ password: e.target.value });
     }
-    onFormSubmit = (e) => {
+    onFormSubmit = async (e) => {
         if (!this.state.email) {
             alert("Enter Email");
             return;
@@ -23,14 +22,37 @@ class Login extends Component {
             return;
         }
         e.preventDefault();
-        Axios.post('http://localhost:3001/login', { email: this.state.email, password: this.state.password })
-            .catch(err => alert('Something went wrong'))
+        try {
+            await authService.login(this.state.email, this.state.password).then(
+                () => {
+                    window.location = '/';
+                    // window.location.reload();
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
+        } catch (err) {
+            console.log(err);
+        }
+        // await Axios.post('http://localhost:3001/login', { email: this.state.email, password: this.state.password })
+        //     .then((response) => {
+        //         if (response.data.accessToken) {
+        //             console.log(response.data)
+        //             localStorage.setItem('user', JSON.stringify(response.data));
+        //             // window.location = '/';
+
+        //         } else {
+        //         }
+        //     })
+        //     .catch(err => alert('Something went wrong'))
         // .then(window.location.reload())
     }
 
     render() {
+        if (authService.getCurrentUser()) { window.location = '/' }
         return (
-            <div>
+            <div >
                 <div className='d-flex justify-content-center'>
                     <div className="card" style={{ margin: '100px', width: '50%' }}>
                         <div className="card-body">
@@ -55,6 +77,7 @@ class Login extends Component {
                 </div>
             </div >
         );
+
     }
 }
 

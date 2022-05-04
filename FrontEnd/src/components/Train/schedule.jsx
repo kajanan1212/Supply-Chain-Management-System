@@ -6,17 +6,16 @@ class TrainSchedule extends React.Component {
         trains: []
     }
     async componentDidMount() {
-        await Axios.get('http://localhost:3001/trainschedule').then((response) => {
+        await Axios.get('http://localhost:3001/train/trainschedule').then((response) => {
             this.setState({ trains: response.data })
         })
         // Axios.post('http://localhost:3001/api/insert',);
     }
     render() {
-        console.log(this.props)
         return (
-            < div className="container mt-4" >
-                <table className="table  table-secondary table-striped table-bordered border-dark">
-                    <thead className="thead-dark">
+            < div className="container mt-4 pt-4" >
+                <table className="table table-secondary table-striped table-bordered border-dark">
+                    < thead className="thead-dark" >
                         <tr>
                             <th className='col-2'>Train</th>
                             <th className='col-2'>Destination</th>
@@ -24,7 +23,7 @@ class TrainSchedule extends React.Component {
                             <th className='col-2'>Capasity</th>
                             <th className='col-2'>Stops</th>
                         </tr>
-                    </thead>
+                    </thead >
                     <tbody>
                         {this.state.trains.map(train => (
                             <tr key={train.train_id}>
@@ -39,7 +38,7 @@ class TrainSchedule extends React.Component {
                         )
                         )}
                     </tbody>
-                </table>
+                </table >
             </div >
         );
     }
