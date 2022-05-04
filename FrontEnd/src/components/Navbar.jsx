@@ -9,14 +9,23 @@ class Navbar extends React.Component {
     }
 
     async componentDidMount() {
-        const token = authService.getCurrentUser();
-        // console.log(token.accessToken)
-        const user = jwt_decode(token.accessToken);
-        this.setState({ customer: user.user })
+        try {
+            let token = authService.getCurrentUser();
+            // console.log(token.accessToken)
+            const user = jwt_decode(token.accessToken);
+            this.setState({ customer: user.user })
+        }
+        catch {
+        }
+
     }
     logOut = () => {
         authService.logout();
     };
+
+    redirect = (page) => {
+        window.location = `/` + page;
+    }
 
     render() {
         return (
@@ -27,27 +36,34 @@ class Navbar extends React.Component {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li className="nav-item">
-                                <Link className="nav-link fw-bold" aria-current="page" to="#">New Orders</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link fw-bold" to="#">Schedule Train</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to='/train/trainschedule' className="nav-link fw-bold">Scheduled Train</Link>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link fw-bold" href="#">
-                                </a>
-                            </li>
-                        </ul>
+                        {(this.state.customer.length !== 0) &&
+                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li className="nav-item">
+                                    <Link className="nav-link fw-bold" aria-current="page" to="#">New Orders</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link fw-bold" to="#">Schedule Train</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to='/train/trainschedule' className="nav-link fw-bold">Scheduled Train</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link fw-bold" href="#">
+                                    </a>
+                                </li>
+                            </ul>}
                     </div>
-                    <div className="d-flex" style={{ marginTop: '-5px', marginBottom: '-7px' }}>
-                        <h1><i className="fa fa-user-circle-o me-2"></i></h1>
-
-                        <h4 className="align-middle mt-2 fw-bolder" style={{ color: '#4A148C' }}>{this.state.customer.first_name}</h4>
-                    </div>
+                    {(this.state.customer.length !== 0) &&
+                        <div className="d-flex" style={{ marginTop: '-5px', marginBottom: '-7px' }}>
+                            <h5 className='align-middle mt-3 me-3 fw-bolder' style={{ color: '#4A148C', cursor: 'pointer' }} onClick={this.logOut}>Logout</h5>
+                            <h1><i className="fa fa-user-circle-o me-2"></i></h1>
+                            <h4 className="align-middle mt-3 fw-bolder" style={{ color: '#4A148C' }}>{this.state.customer.first_name}</h4>
+                        </div>}
+                    {(this.state.customer.length === 0) &&
+                        <div className="d-flex" style={{ marginTop: '-5px', marginBottom: '-7px' }}>
+                            <h5 className='align-middle mt-3 me-3 fw-bolder' style={{ color: '#4A148C', cursor: 'pointer' }} onClick={() => this.redirect('login')}>login</h5>
+                            <h5 className='align-middle mt-3 me-3 fw-bolder' style={{ color: '#4A148C', cursor: 'pointer' }} onClick={() => this.redirect('signup')}>signup</h5>
+                        </div>}
                 </div>
             </nav >
         );

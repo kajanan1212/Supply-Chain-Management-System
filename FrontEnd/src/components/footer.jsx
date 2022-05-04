@@ -1,5 +1,7 @@
 import React from "react"
+import authService from "./service/auth.service"
 
+// if (authService.getCurrentUser()) { window.location = '/'; } else { window.location = '/auth/login'; }
 const Footer = () =>
     <footer style={{
         backgroundColor: "#ceaff5",

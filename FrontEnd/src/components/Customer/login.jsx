@@ -50,9 +50,9 @@ class Login extends Component {
     }
 
     render() {
-        if (authService.getCurrentUser()) { window.location = '/' }
+        if (authService.getCurrentUser()) { window.location = '/'; }
         return (
-            <div >
+            <div style={{ marginTop: '40px', marginBottom: "260px" }}>
                 <div className='d-flex justify-content-center'>
                     <div className="card" style={{ margin: '100px', width: '50%' }}>
                         <div className="card-body">
@@ -69,7 +69,7 @@ class Login extends Component {
                                         <label htmlFor="" className="form-label">Password</label>
                                         <input type="password" className="form-control" value={this.state.password} onChange={this.handlePasswordChange} />
                                     </div>
-                                    <button type="submit" onClick={this.onFormSubmit} className="btn btn-primary">Submit</button>
+                                    <button type="submit" onClick={this.onFormSubmit} className="btn btn-primary mt-4">Submit</button>
                                 </form>
                             </div>
                         </div>

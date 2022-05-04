@@ -3,8 +3,11 @@ const router = express.Router();
 const db = require('../util/database');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const bodyParser = require("body-parser");
 
 require("dotenv").config();
+const app = express();
+app.use(bodyParser.json())
 
 router.post('/login', async (req, res) => {
     const a = req.body;
@@ -23,6 +26,24 @@ router.post('/login', async (req, res) => {
             }
         } else {
             return null;
+        }
+    })
+});
+
+router.post('/signup', async (req, res) => {
+    const { email, first_name, last_name, password, confirmpassword, phone_num } = req.body;
+    if (password !== confirmpassword) {
+
+        res.send("Password not matching");
+    }
+    // console.log(password)
+    let salt = await bcrypt.genSalt(10);
+    const pass = await bcrypt.hash(password, salt)
+
+    const sql = "INSERT INTO customer (`email`, `first_name`, `last_name`, `phone_num`, `password`, `image`) VALUES (?,?,?,?,?,'user.jpg');"
+    db.query(sql, [email, first_name, last_name, phone_num, pass], async (err, result) => {
+        if (err) {
+            res.send({ err: err })
         }
     })
 });

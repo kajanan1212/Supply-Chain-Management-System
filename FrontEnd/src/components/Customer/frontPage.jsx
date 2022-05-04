@@ -30,10 +30,11 @@ class FrontPage extends Component {
 
 
     render() {
+        if (!authService.getCurrentUser()) { window.location = '/login'; }
         const { length: count } = this.state.items;
         const items = paginate(this.state.items, this.state.currentPage, this.state.pageSize)
         return (
-            <div>
+            <div style={{ marginBottom: "70px" }}>
                 <div >
                     <div className='row d-flex justify-content-center' style={{ margin: '30px' }}>
                         {items.map(item => (
@@ -51,10 +52,10 @@ class FrontPage extends Component {
                 {this.state.carts.map(cart => (
                     <CartItem key={cart.product_id} cart={cart} handleRemoveFromCart={() => this.removeFromCart(cart)} onIncrement={() => this.handleIncrement(cart)} onDecrement={() => this.handleDecrement(cart)} />
                 ))}
-                <div className="row me-4">
+                <div className="row me-4" >
                     <div className="col-8"></div>
                     <div className="col-2 h3">Total Price: Rs.{this.calculateAmount()}.00</div>
-                    <div className="col-2"><button className="btn btn-primary mb-2" disabled={this.findCartItemsValid() === 0 ? 'ture' : ''} onClick={() => this.handleBuyNow(this.state.carts)}><b>Buy Now</b></button></div>
+                    <div className="col-2"><button className="btn btn-primary mb-4" disabled={this.findCartItemsValid() === 0 ? 'ture' : ''} onClick={() => this.handleBuyNow(this.state.carts)}><b>Buy Now</b></button></div>
                 </div>
             </div>
 
