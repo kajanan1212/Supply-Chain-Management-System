@@ -65,9 +65,9 @@ class RegisterWorker extends Component {
                                     <div className="mb-3">
                                         <label htmlFor="" className="form-label">Job Type</label>
                                         <select className="form-control" value={this.state.district} onChange={this.handleDistrictChange}>
-                                            <option value="volvo">Shop Keeper</option>
-                                            <option value="saab">Truck Driver</option>
-                                            <option value="mercedes">Driver Assistant</option>
+                                            <option >Shop Keeper</option>
+                                            <option >Truck Driver</option>
+                                            <option >Driver Assistant</option>
                                         </select>
                                     </div>
 
