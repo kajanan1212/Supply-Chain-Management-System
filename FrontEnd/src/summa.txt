@@ -1,4 +1,18 @@
 
+insert into district values("matara","Akuressa");
+insert into district values("matara","Athuraliya");
+insert into district values("matara","Devinuwara");
+insert into district values("matara","Dickwella");
+insert into district values("matara","Hakmanamburupitiya");
+insert into district values("matara","Kirinda");
+insert into district values("matara","Kotapola");
+insert into district values("matara","Malimbada");
+insert into district values("matara","Matara");
+insert into district values("matara","Thihagoda");
+insert into district values("matara","Weligama");
+insert into district values("matara","Welipitiya");
+
+
 /* CREATE TABLE */
 CREATE TABLE product(
 product_id DOUBLE,
@@ -219,5 +233,4 @@ VALUES
 (
 30, 'wooden shelf', '3 drawers', 15000, 1, 'shelf.jpg'
 );
-
 
