@@ -11,13 +11,11 @@ class Navbar extends React.Component {
     async componentDidMount() {
         try {
             let token = authService.getCurrentUser();
-            // console.log(token.accessToken)
             const user = jwt_decode(token.accessToken);
             this.setState({ customer: user.user })
         }
         catch {
         }
-
     }
     logOut = () => {
         authService.logout();

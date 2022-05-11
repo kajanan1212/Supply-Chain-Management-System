@@ -3,9 +3,11 @@ const router = express.Router();
 const db = require('../util/database');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const bodyParser = require("body-parser");
+const _ = require('lodash');
 
+const bodyParser = require("body-parser");
 require("dotenv").config();
+
 const app = express();
 app.use(bodyParser.json())
 
@@ -31,6 +33,7 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/signup', async (req, res) => {
+    const cus_id = _.uniqueId("customer_");
     const { email, first_name, last_name, password, confirmpassword, phone_num } = req.body;
     if (password !== confirmpassword) {
 
@@ -40,8 +43,8 @@ router.post('/signup', async (req, res) => {
     let salt = await bcrypt.genSalt(10);
     const pass = await bcrypt.hash(password, salt)
 
-    const sql = "INSERT INTO customer (`email`, `first_name`, `last_name`, `phone_num`, `password`, `image`) VALUES (?,?,?,?,?,'user.jpg');"
-    db.query(sql, [email, first_name, last_name, phone_num, pass], async (err, result) => {
+    const sql = "INSERT INTO customer (`customer_id`,`email`, `first_name`, `last_name`, `phone_num`, `password`, `image`) VALUES (?,?,?,?,?,?,'user.jpg');"
+    db.query(sql, [cus_id, email, first_name, last_name, phone_num, pass], async (err, result) => {
         if (err) {
             res.send({ err: err })
         }
