@@ -21,6 +21,7 @@ function App() {
         <Route path='/registerManager' element={<RegisterManager />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
+        <Route path='/login' element={<Login />} />
       </Routes >
       <Footer />
     </div>
