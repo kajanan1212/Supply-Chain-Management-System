@@ -7,7 +7,7 @@ class Signup extends Component {
         lastName: "",
         phoneNo: "",
         address: "",
-        pastword: "",
+        password: "",
         confirmPassword: ""
     }
     handleEmailChange = (e) => {
@@ -33,10 +33,7 @@ class Signup extends Component {
     }
 
     onFormSubmit = (e) => {
-        // if (this.state.confirmPassword == this.state.password) {
-        //     alert("Password not match");
-        //     return;
-        // }
+       
         if (!this.state.email) {
             alert("Enter Email");
             return;
@@ -66,9 +63,6 @@ class Signup extends Component {
             return;
         }
         
-        // e.preventDefault();
-        // Axios.post('http://localhost:3001/login', { email: this.state.email, password: this.state.password })
-        //     .catch(err => alert('Something went wrong'))
         
     }
 

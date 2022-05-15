@@ -17,6 +17,9 @@ import Login from './components/Customer/login';
 import Signup from './components/Customer/signup';
 import RegisterManager from './components/Admin/registerManager';
 import RegisterWorker from './components/Manager/registerWorker';
+import PlaceOrderModal from './components/Customer/placeOrderModal';
+import AddProduct from './components/Admin/addProduct';
+import OrderDetail from './components/Customer/orderDetail';
 
 
 
@@ -35,6 +38,10 @@ ReactDOM.render(
       <Route path='/signup' element={<Signup />} />
       <Route path='/registerManager' element={<RegisterManager />} />
       <Route path='/registerWorker' element={<RegisterWorker />} />
+      <Route path='/placeOrderModal' element={<PlaceOrderModal />} />
+      <Route path='/addProduct' element={<AddProduct />} />
+      <Route path='/orderDetail' element={<OrderDetail />} />
+
 
     </Routes>
     {/* <FrontPage /> */}
