@@ -6,7 +6,7 @@ class TrainSchedule extends React.Component {
         trains: []
     }
     async componentDidMount() {
-        await Axios.get('http://localhost:3001/train/trainschedule').then((response) => {
+        await Axios.get('http://localhost:3001/admin/trainschedule').then((response) => {
             this.setState({ trains: response.data })
         })
         // Axios.post('http://localhost:3001/api/insert',);

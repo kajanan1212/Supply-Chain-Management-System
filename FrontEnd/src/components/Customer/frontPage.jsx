@@ -15,6 +15,7 @@ class FrontPage extends Component {
         pageSize: 9,
         currentPage: 1,
         places: { 'colombo': [], 'jaffna': [], 'matara': [], 'galle': [], 'trincomalee': [] },
+        user: [],
 
         district: "",
         city: "",
@@ -22,6 +23,7 @@ class FrontPage extends Component {
     }
 
     async componentDidMount() {
+        this.setState({ user: this.props.user });
         customerServices.getAllProduct().then((response) => {
             this.setState({ items: response.data[0] })
             for (var i = 0; i < response.data[1].length; i++) {
@@ -97,7 +99,6 @@ class FrontPage extends Component {
                     <div className="col-8"></div>
                     <div className="col-2 h3">Total Price: Rs.{this.calculateAmount()}.00</div>
                     <div className="col-2"><button className="btn btn-primary mb-4" disabled={this.findCartItemsValid() === 0 ? 'ture' : ''} data-bs-toggle="modal" data-bs-target="#addressGetter"><b>Buy Now</b></button></div>
-                    {/* onClick={() => this.handleBuyNow(this.state.carts)} */}
                 </div>
                 <div className="modal fade" id="addressGetter" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div className="modal-dialog">

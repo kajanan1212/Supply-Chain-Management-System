@@ -1,6 +1,8 @@
 const express = require('express');
 const db = require('../util/database');
-const _ = require('lodash');
+const getUniqId = require('../common/crypto_id');
+
+
 
 const router = express.Router();
 
@@ -16,7 +18,7 @@ router.post('/', (req, res) => {
     const a = req.body.dataa;
     const cost = req.body.cost;
     const capacity = req.body.capacity;
-    const order_id = _.uniqueId('ord_');
+    const order_id = getUniqId('ord')
 
     a.carts.forEach(element => {
         const sql1 = "UPDATE product SET quantity=? WHERE product_id=?";
@@ -26,13 +28,16 @@ router.post('/', (req, res) => {
         const sql2 = "insert into has(order_id,product_id,count) values(?,?,?)";
         db.query(sql2, [order_id, element.product_id, element.count], (err, result) => { });
     });
+    // console.log(a)
     const address = a.address + ", " + a.city + ", " + a.district;
     const sql3 = "insert into places(customer_id,order_id,address) values(?,?,?)"
-    db.query(sql3, [1, order_id, address], (err, result) => { });
+    db.query(sql3, [a.user.customer_id, order_id, address], (err, result) => { });
 
     const sql4 = "insert into customer_order(order_id,total_price,capacity) values (?,?,?)";
-    db.query(sql4, [order_id, cost, capacity], (err, result) => { });
+    db.query(sql4, [order_id, cost, capacity], (err, result) => {
+    });
 
 });
+
 
 module.exports = router;
