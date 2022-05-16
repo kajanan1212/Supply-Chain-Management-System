@@ -18,6 +18,8 @@ const login = (email, password) => {
             if (response.data.accessToken) {
 
                 localStorage.setItem('user', JSON.stringify(response.data));
+            } else {
+                alert("Wrong Username or Password wrong")
             }
         }).catch(err => alert('Username or Password wrong'))
 

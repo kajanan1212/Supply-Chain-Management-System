@@ -14,8 +14,11 @@ app.use("/", auth);
 const customer = require('./routes/customer');
 app.use("/", customer);
 
-const train = require('./routes/train');
-app.use("/train", train);
+const store = require('./routes/store');
+app.use("/store", store);
+
+const admin = require('./routes/admin');
+app.use("/admin", admin);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
