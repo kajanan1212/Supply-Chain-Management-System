@@ -40,7 +40,7 @@ class App extends React.Component {
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/admin/addProduct' element={<AddProduct />} />
-          <Route path='/history' element={<OrderedProduct />} />
+          <Route path='/history' element={<OrderedProduct customer_id={this.state.customer.customer_id} />} />
           <Route
             path="*"
             element={<Navigate to="/" replace />}

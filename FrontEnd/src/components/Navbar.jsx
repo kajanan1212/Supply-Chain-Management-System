@@ -28,7 +28,7 @@ class Navbar extends React.Component {
                         {((this.props.user.length !== 0) && (this.props.user['type'] == 'active')) &&
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item">
-                                    <Link className="nav-link fw-bold" aria-current="page" to="/History">History</Link>
+                                    <Link className="nav-link fw-bold" aria-current="page" to="/history">History</Link>
                                 </li>
                             </ul>}
                         {((this.props.user.length !== 0) && (this.props.user['type'] == 'admin')) &&
