@@ -128,41 +128,24 @@
 // const getUniqId = require("../common/crypto_id");
 // console.log(getUniqId("customer"))
 
-const list = [{
-    'name': 'Display',
-    'group': 'Technical detals',
-    'id': '60',
-    'value': '4'
-},
-{
-    'name': 'Manufacturer',
-    'group': 'Manufacturer',
-    'id': '58',
-    'value': 'Apple'
-},
-{
-    'name': 'OS',
-    'group': 'Technical detals',
-    'id': '37',
-    'value': 'Apple iOS'
-}
-];
-
-function groupByAttr(collection, property) {
-    var i = 0, val, index,
-        values = [], result = [];
-    for (; i < collection.length; i++) {
-        val = collection[i][property];
-        index = values.indexOf(val);
-        if (index > -1)
-            result[index].push(collection[i]);
-        else {
-            values.push(val);
-            result.push([collection[i]]);
-        }
-    }
-    return result;
+const c = {
+    "order_id": "ord_87db3087d50b4d70",
+    "product_id": "pro_16",
+    "count": 1,
+    "customer_id": "customer_3fe9234cd3ebba5b",
+    "address": "asf",
+    "city": "fort",
+    "district": "colombo",
+    "date_time": "2022-05-16T12:26:29.000Z",
+    "state": "created",
+    "total_price": 22000,
+    "capacity": 400,
+    "train_id": 1,
+    "train_name": "Nuwara Devi",
+    "destination": "Colombo",
+    "start_time": "06:00:00",
+    "end_time": "09:00:00",
+    "stops": "Kegalle,Veyangoda,Gampaha,Colombo"
 }
 
-console.log(groupByAttr(list, "group"));
-console.log(typeof (list))
+console.log(c.capacity)

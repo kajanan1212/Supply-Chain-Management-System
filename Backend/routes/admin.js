@@ -18,6 +18,13 @@ router.get('/scheduledorder', (req, res) => {
     })
 });
 
+router.get('/scheduletrainto', (req, res) => {
+    const district = req.query;
+    const sql = "select * from (places right outer join has using(order_id)) left outer join customer_order using(order_id) left outer join train on (train.destination = places.district ) where district=? group by order_id; ";
+    db.query(sql, [district['0']], (err, result) => {
+        res.send(result)
+    })
+});
 router.post('/addproduct', (req, res) => {
     const a = req.body.dataa;
     const product_id = getUniqId('pro')
