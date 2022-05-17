@@ -16,6 +16,7 @@ import AdminDashboard from './components/admin/adminDashboard';
 import ScheduleTrain from './components/admin/scheduleTrain';
 import NewOrders from './components/admin/neworders';
 import ScheduledOrders from './components/admin/scheduledOrder';
+import X from './components/admin/scheduleTrainTo';
 
 class App extends React.Component {
   state = { customer: [] }
@@ -40,10 +41,11 @@ class App extends React.Component {
         <Route path='/admin/registerWorker' element={<RegisterWorker />} />
         <Route path='/admin/addProduct' element={<AddProduct />} />
         <Route path='/admin/scheduletrain' element={<ScheduleTrain />} />
+        <Route path='/admin/scheduletrainto' element={<X />} />
         <Route path='/admin/neworder' element={<NewOrders />} />
         {/* <Route path='/admin/pastorder' element={<PastOrder />} /> */}
         <Route path='/admin/scheduledorder' element={<ScheduledOrders />} />
-        <Route path="*" element={<Navigate to="/admin" replace />} />
+        {/* <Route path="*" element={<Navigate to="/admin" replace />} /> */}
       </Routes >
       <Footer />
     </div>)
