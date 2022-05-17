@@ -25,7 +25,13 @@ class Login extends Component {
         try {
             await authService.login(this.state.email, this.state.password).then(
                 () => {
-                    window.location = '/';
+                    if (this.state.email.startsWith('buymore')) {
+                        window.location = '/store';
+                    } else {
+                        window.location = '/';
+                    }
+                    // console.log(res);
+                    // console.log(req)
                     // window.location.reload();
                 },
                 (error) => {

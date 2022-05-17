@@ -123,5 +123,46 @@
 
 // module.exports.getAllUsers = getAllUsers;
 // module.exports.postUser = postUser;
- // => f9b327e70bbcf42494ccb28b2d98e00e
+// => f9b327e70bbcf42494ccb28b2d98e00e
 
+// const getUniqId = require("../common/crypto_id");
+// console.log(getUniqId("customer"))
+
+const list = [{
+    'name': 'Display',
+    'group': 'Technical detals',
+    'id': '60',
+    'value': '4'
+},
+{
+    'name': 'Manufacturer',
+    'group': 'Manufacturer',
+    'id': '58',
+    'value': 'Apple'
+},
+{
+    'name': 'OS',
+    'group': 'Technical detals',
+    'id': '37',
+    'value': 'Apple iOS'
+}
+];
+
+function groupByAttr(collection, property) {
+    var i = 0, val, index,
+        values = [], result = [];
+    for (; i < collection.length; i++) {
+        val = collection[i][property];
+        index = values.indexOf(val);
+        if (index > -1)
+            result[index].push(collection[i]);
+        else {
+            values.push(val);
+            result.push([collection[i]]);
+        }
+    }
+    return result;
+}
+
+console.log(groupByAttr(list, "group"));
+console.log(typeof (list))

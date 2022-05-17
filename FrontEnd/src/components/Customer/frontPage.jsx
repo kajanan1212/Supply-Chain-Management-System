@@ -15,7 +15,6 @@ class FrontPage extends Component {
         pageSize: 9,
         currentPage: 1,
         places: { 'colombo': [], 'jaffna': [], 'matara': [], 'galle': [], 'trincomalee': [] },
-        user: [],
 
         district: "",
         city: "",
@@ -23,7 +22,6 @@ class FrontPage extends Component {
     }
 
     async componentDidMount() {
-        this.setState({ user: this.props.user });
         customerServices.getAllProduct().then((response) => {
             this.setState({ items: response.data[0] })
             for (var i = 0; i < response.data[1].length; i++) {
@@ -53,7 +51,7 @@ class FrontPage extends Component {
     handleAddressChange = (e) => {
         this.setState({ address: e.target.value });
     }
-    handleBuyNow = (dataa, cost, capacity) => {
+    handleBuyNow = (dataa, currentUser, cost, capacity) => {
         if (!this.state.district) {
             alert("Select District");
             return;
@@ -66,7 +64,7 @@ class FrontPage extends Component {
             alert("Enter Address");
             return;
         }
-        customerServices.handleBuyNow(dataa, cost, capacity)
+        customerServices.handleBuyNow(dataa, currentUser, cost, capacity)
             .catch(err => alert('Something went wrong'))
             .then(window.location.reload())
     }
@@ -144,15 +142,11 @@ class FrontPage extends Component {
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" onClick={() => this.handleBuyNow(this.state, this.calculateAmount(), this.calculateCapasity())} className="btn btn-primary">Place Order</button>
+                                <button type="button" onClick={() => this.handleBuyNow(this.state, this.props.user, this.calculateAmount(), this.calculateCapasity())} className="btn btn-primary">Place Order</button>
                             </div>
                         </div>
                     </div>
                 </div >
-
-
-
-
             </div >
 
         );
