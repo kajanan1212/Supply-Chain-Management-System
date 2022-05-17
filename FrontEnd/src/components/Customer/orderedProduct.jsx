@@ -36,7 +36,7 @@ class OrderedProduct extends Component {
                                 <div className="col">
                                     <h4 className='text-bold'>Shopping Details</h4>
                                     <h6>Customer Name: {order[0].first_name}</h6>
-                                    <h6>Address: {order[0].address}</h6>
+                                    <h6>Address: {order[0].address} ,{order[0].city}, {order[0].district}</h6>
                                     <h6>Estimated Delivary: {new Date(delivarydate).toDateString()}</h6>
                                 </div>
                                 <div className="col">

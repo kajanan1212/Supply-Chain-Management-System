@@ -37,9 +37,9 @@ router.post('/', (req, res) => {
         db.query(sql2, [order_id, element.product_id, element.count], (err, result) => { });
     });
     // console.log(user)
-    const address = a.address + ", " + a.city + ", " + a.district;
-    const sql3 = "insert into places(customer_id,order_id,address) values(?,?,?)"
-    db.query(sql3, [user.customer_id, order_id, address], (err, result) => {
+    // const address = a.address + ", " + a.city + ", " + a.district;
+    const sql3 = "insert into places(customer_id,order_id,address,city,district) values(?,?,?,?,?)"
+    db.query(sql3, [user.customer_id, order_id, a.address, a.city, a.district], (err, result) => {
         // console.log(err);
         // console.log(result);
 

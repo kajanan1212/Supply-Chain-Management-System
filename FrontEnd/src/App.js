@@ -13,6 +13,9 @@ import AddProduct from './components/admin/addProduct';
 import OrderedProduct from './components/Customer/orderedProduct';
 import jwt_decode from 'jwt-decode';
 import AdminDashboard from './components/admin/adminDashboard';
+import ScheduleTrain from './components/admin/scheduleTrain';
+import NewOrders from './components/admin/neworders';
+import ScheduledOrders from './components/admin/scheduledOrder';
 
 class App extends React.Component {
   state = { customer: [] }
@@ -36,6 +39,10 @@ class App extends React.Component {
         <Route path='/admin/registerManager' element={<RegisterManager />} />
         <Route path='/admin/registerWorker' element={<RegisterWorker />} />
         <Route path='/admin/addProduct' element={<AddProduct />} />
+        <Route path='/admin/scheduletrain' element={<ScheduleTrain />} />
+        <Route path='/admin/neworder' element={<NewOrders />} />
+        {/* <Route path='/admin/pastorder' element={<PastOrder />} /> */}
+        <Route path='/admin/scheduledorder' element={<ScheduledOrders />} />
         <Route path="*" element={<Navigate to="/admin" replace />} />
       </Routes >
       <Footer />
