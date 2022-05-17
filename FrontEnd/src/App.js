@@ -12,6 +12,7 @@ import Signup from './components/Customer/signup';
 import AddProduct from './components/admin/addProduct';
 import OrderedProduct from './components/Customer/orderedProduct';
 import jwt_decode from 'jwt-decode';
+import AdminDashboard from './components/admin/adminDashboard';
 
 class App extends React.Component {
   state = { customer: [] }
@@ -27,30 +28,75 @@ class App extends React.Component {
     }
   }
   render() {
-    return (
-      <div>
-        < Navbar user={this.state.customer} />
-        < Routes >
-          <Route path='/admin/trainschedule' element={<TrainSchedule />} />
-          <Route path='/admin/registerManager' element={<RegisterManager />} />
-          <Route path='/admin/registerWorker' element={<RegisterWorker />} />
-          <Route path='/' element={<FrontPage user={this.state.customer} />} />
-          <Route path='/registerworker' element={<RegisterWorker />} />
-          <Route path='/registerManager' element={<RegisterManager />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/admin/addProduct' element={<AddProduct />} />
-          <Route path='/history' element={<OrderedProduct customer_id={this.state.customer.customer_id} />} />
-          <Route
-            path="*"
-            element={<Navigate to="/" replace />}
-          />
-        </Routes >
-        <Footer />
-      </div>
-    )
+    const admin = (<div>
+      < Navbar user={this.state.customer} />
+      < Routes >
+        <Route path='/admin/trainschedule' element={<TrainSchedule />} />
+        <Route path='/admin' element={<AdminDashboard />} />
+        <Route path='/admin/registerManager' element={<RegisterManager />} />
+        <Route path='/admin/registerWorker' element={<RegisterWorker />} />
+        <Route path='/admin/addProduct' element={<AddProduct />} />
+        <Route path="*" element={<Navigate to="/admin" replace />} />
+      </Routes >
+      <Footer />
+    </div>)
+
+    const user = (<div>
+      < Navbar user={this.state.customer} />
+      < Routes >
+        <Route path='/' element={<FrontPage user={this.state.customer} />} />
+        <Route path='/history' element={<OrderedProduct customer_id={this.state.customer.customer_id} />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes >
+      <Footer />
+    </div>)
+
+    const nullPart = (<div>
+      < Navbar user={this.state.customer} />
+      < Routes >
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes >
+      <Footer />
+    </div>)
+
+    if (this.state.customer.type === "active") {
+      return user;
+    } else if (this.state.customer.type === 'admin') {
+      return admin;
+    } else {
+      return nullPart;
+    }
   }
 
 }
 
 export default App;
+
+
+
+
+// return (
+//   <div>
+//     < Navbar user={this.state.customer} />
+
+//     < Routes >
+//       <Route path='/admin/trainschedule' element={<TrainSchedule />} />
+//       <Route path='/admin/registerManager' element={<RegisterManager />} />
+//       <Route path='/admin/registerWorker' element={<RegisterWorker />} />
+//       <Route path='/' element={<FrontPage user={this.state.customer} />} />
+//       <Route path='/registerworker' element={<RegisterWorker />} />
+//       <Route path='/registerManager' element={<RegisterManager />} />
+//       <Route path='/login' element={<Login />} />
+//       <Route path='/signup' element={<Signup />} />
+//       <Route path='/admin/addProduct' element={<AddProduct />} />
+//       <Route path='/history' element={<OrderedProduct customer_id={this.state.customer.customer_id} />} />
+//       <Route
+//         path="*"
+//         element={<Navigate to="/" replace />}
+//       />
+//     </Routes >
+//     <Footer />
+//   </div>
+// )
