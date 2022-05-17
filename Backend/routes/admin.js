@@ -4,12 +4,19 @@ const getUniqId = require('../common/crypto_id');
 
 const router = express.Router();
 
-// router.get('/', (req, res) => {
-//     const sql = ["select * from product", "select * from district order by district asc"]
-//     db.query(sql.join(';'), (err, result) => {
-//         res.send(result);
-//     })
-// }); 
+router.get('/neworder', (req, res) => {
+    const sql = "select * from(((train left outer join places on(train.destination = places.district)) left outer join customer_order using (order_id)) left outer join has using(order_id)) where((order_id is not null) and state = 'created') order by date_time desc";
+    db.query(sql, (err, result) => {
+        res.send(result);
+    })
+});
+
+router.get('/scheduledorder', (req, res) => {
+    const sql = "select * from(((train left outer join places on(train.destination = places.district)) left outer join customer_order using (order_id)) left outer join has using(order_id)) where((order_id is not null) and state = 'trainsheduled' ) order by date_time desc";
+    db.query(sql, (err, result) => {
+        res.send(result);
+    })
+});
 
 router.post('/addproduct', (req, res) => {
     const a = req.body.dataa;

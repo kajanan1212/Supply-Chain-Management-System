@@ -39,7 +39,16 @@ class Navbar extends React.Component {
                                     <Link className="nav-link fw-bold" aria-current="page" to="/admin/addproduct">Add Product</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link fw-bold" to="#">Schedule Train</Link>
+                                    <Link className="nav-link fw-bold" to="/admin/neworder">New Orders</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link fw-bold" to="/admin/scheduledorder">Scheduled Orders</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link fw-bold" to="/admin/pastorder">Past Orders</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link fw-bold" to="/admin/scheduletrain">Schedule Train</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link to='/admin/trainschedule' className="nav-link fw-bold">Scheduled Train</Link>
