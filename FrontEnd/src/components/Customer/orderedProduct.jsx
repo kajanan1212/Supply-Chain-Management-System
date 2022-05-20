@@ -17,7 +17,7 @@ class OrderedProduct extends Component {
             const arranged = groupByAttr(response.data, 'order_id')
             this.setState({ orders: arranged })
 
-            console.log(this.state.orders[0])
+            // console.log(this.state.orders[0])
         });
     }
     render() {

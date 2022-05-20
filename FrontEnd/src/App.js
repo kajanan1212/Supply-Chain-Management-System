@@ -16,24 +16,25 @@ import AdminDashboard from './components/admin/adminDashboard';
 import ScheduleTrain from './components/admin/scheduleTrain';
 import NewOrders from './components/admin/neworders';
 import ScheduledOrders from './components/admin/scheduledOrder';
-import X from './components/admin/scheduleTrainTo';
+import ScheduleTrainTo from './components/admin/scheduleTrainTo';
+import PastOrders from './components/admin/pastOrders';
 
 class App extends React.Component {
-  state = { customer: [] }
-
+  state = { customer: [], role: '' }
 
   async componentDidMount() {
     try {
       let token = authService.getCurrentUser();
       const decToken = jwt_decode(token.accessToken);
-      this.setState({ customer: decToken.user })
+      console.log(token.role)
+      this.setState({ customer: decToken.user, role: token.role })
     }
     catch {
     }
   }
   render() {
     const admin = (<div>
-      < Navbar user={this.state.customer} />
+      < Navbar user={this.state.customer} role={this.state.role} />
       < Routes >
         <Route path='/admin/trainschedule' element={<TrainSchedule />} />
         <Route path='/admin' element={<AdminDashboard />} />
@@ -41,7 +42,8 @@ class App extends React.Component {
         <Route path='/admin/registerWorker' element={<RegisterWorker />} />
         <Route path='/admin/addProduct' element={<AddProduct />} />
         <Route path='/admin/scheduletrain' element={<ScheduleTrain />} />
-        <Route path='/admin/scheduletrainto' element={<X />} />
+        <Route path='/admin/scheduletrainto' element={<ScheduleTrainTo />} />
+        <Route path='/admin/pastorders' element={<PastOrders />} />
         <Route path='/admin/neworder' element={<NewOrders />} />
         {/* <Route path='/admin/pastorder' element={<PastOrder />} /> */}
         <Route path='/admin/scheduledorder' element={<ScheduledOrders />} />
@@ -50,8 +52,24 @@ class App extends React.Component {
       <Footer />
     </div>)
 
+    const store = (<div>
+      < Navbar user={this.state.customer} role={this.state.role} />
+      < Routes >
+        <Route path='/store' element={<AddProduct user={this.state.customer} />} />
+        <Route path='/store/neworder' element={<OrderedProduct customer_id={this.state.customer.customer_id} />} />
+        <Route path='/store/finishedorder' element={<AddProduct user={this.state.customer} />} />
+        <Route path='/store/scheduledorder' element={<AddProduct user={this.state.customer} />} />
+        <Route path='/store/scheduletruck' element={<AddProduct user={this.state.customer} />} />
+        <Route path='/store/scheduledriver' element={<AddProduct user={this.state.customer} />} />
+        <Route path='/store/scheduleassistant' element={<AddProduct user={this.state.customer} />} />
+        <Route path="*" element={<Navigate to="/store" replace />} />
+      </Routes >
+      <Footer />
+    </div>)
+
+
     const user = (<div>
-      < Navbar user={this.state.customer} />
+      < Navbar user={this.state.customer} role={this.state.role} />
       < Routes >
         <Route path='/' element={<FrontPage user={this.state.customer} />} />
         <Route path='/history' element={<OrderedProduct customer_id={this.state.customer.customer_id} />} />
@@ -61,7 +79,7 @@ class App extends React.Component {
     </div>)
 
     const nullPart = (<div>
-      < Navbar user={this.state.customer} />
+      < Navbar user={this.state.customer} role={this.state.role} />
       < Routes >
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
@@ -70,10 +88,12 @@ class App extends React.Component {
       <Footer />
     </div>)
 
-    if (this.state.customer.type === "active") {
+    if ((this.state.customer.type === "active") && (this.state.role === 'normal')) {
       return user;
-    } else if (this.state.customer.type === 'admin') {
+    } else if ((this.state.customer.type === "admin") && (this.state.role === 'normal')) {
       return admin;
+    } else if (this.state.role === 'store') {
+      return store;
     } else {
       return nullPart;
     }
