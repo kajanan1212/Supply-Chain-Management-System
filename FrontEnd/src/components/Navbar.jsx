@@ -43,7 +43,7 @@ class Navbar extends React.Component {
                                     <Link className="nav-link fw-bold" to="/admin/scheduledorder">Scheduled Orders</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link fw-bold" to="/admin">Past Orders</Link>
+                                    <Link className="nav-link fw-bold" to="/admin/pastorders">Past Orders</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link className="nav-link fw-bold" to="/admin/scheduletrain">Schedule Train</Link>
@@ -53,22 +53,33 @@ class Navbar extends React.Component {
                                 </li>
 
                             </ul>}
-                        {((this.props.user.length !== 0) && (this.props.user['type'] == 'store')) &&
+                        {((this.props.user.length !== 0) && (this.props.role == 'store')) &&
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item">
-                                    <Link className="nav-link fw-bold" aria-current="page" to="/store/busroute">Add Product Orders</Link>
+                                    <Link className="nav-link fw-bold" to="/store/neworder">New Orders</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link fw-bold" to="/store/orders">Orders</Link>
+                                    <Link className="nav-link fw-bold" aria-current="page" to="/store/finishedorder">Scheduled Orders</Link>
                                 </li>
-
+                                <li className="nav-item">
+                                    <Link className="nav-link fw-bold" aria-current="page" to="/store/scheduledorder">Finished Orders</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link fw-bold" aria-current="page" to="/store/scheduletruck">Schedule Truck</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link fw-bold" aria-current="page" to="/store/scheduledriver">Schedule Driver</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link fw-bold" aria-current="page" to="/store/scheduleassistant">Schedule Assistant</Link>
+                                </li>
                             </ul>}
                     </div>
                     {(this.props.user.length !== 0) &&
                         <div className="d-flex" style={{ marginTop: '-5px', marginBottom: '-7px' }}>
                             <h5 className='align-middle mt-3 me-3 fw-bolder' style={{ color: '#4A148C', cursor: 'pointer' }} onClick={this.logOut}>Logout</h5>
                             <h1><i className="fa fa-user-circle-o me-2"></i></h1>
-                            <h4 className="align-middle mt-3 fw-bolder" style={{ color: '#4A148C' }}>{this.props.user.first_name}</h4>
+                            <h4 className="align-middle mt-3 fw-bolder" style={{ color: '#4A148C' }}>{(this.props.user['type'] == 'admin') ? "admin" : this.props.user.first_name}</h4>
                         </div>}
                     {(this.props.user.length === 0) &&
                         <div className="d-flex" style={{ marginTop: '-5px', marginBottom: '-7px' }}>

@@ -1,23 +1,23 @@
-import Axios from 'axios'
-import React, { Component } from 'react'
+import Axios from 'axios';
+import React, { Component } from 'react';
 import { groupByAttr } from '../common/groupByAttribute'
 
-class ScheduledOrders extends Component {
+class PastOrders extends Component {
     state = {
         newOrders: []
     }
     async componentDidMount() {
-        await Axios.get('http://localhost:3001/admin/scheduledorder').then((response) => {
+        await Axios.get('http://localhost:3001/admin/pastorders').then((response) => {
             const arranged = groupByAttr(response.data, 'order_id')
+            console.log(response.data)
             this.setState({ newOrders: arranged })
-            console.log(arranged)
         })
     }
     render() {
         if (this.state.newOrders.length === 0) return <h1 className='d-flex justify-content-center text-primary mt-2'>No Scheduled Orders</h1>;
         return (
             <div className="container mt-4 mb-4" >
-                <table className="table table-danger">
+                <table className="table table-success">
                     <thead>
                         <tr>
                             <th scope="col">OrderID</th>
@@ -50,4 +50,4 @@ class ScheduledOrders extends Component {
     }
 }
 
-export default ScheduledOrders;
+export default PastOrders;

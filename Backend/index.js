@@ -14,8 +14,8 @@ app.use("/", auth);
 const customer = require('./routes/customer');
 app.use("/", customer);
 
-const store = require('./routes/store');
-app.use("/store", store);
+// const store = require('./routes/store');
+// app.use("/store", store);
 
 const admin = require('./routes/admin');
 app.use("/admin", admin);
