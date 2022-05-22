@@ -6,7 +6,7 @@ import Footer from './components/footer';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import React from 'react';
 import authService from './components/service/auth.service';
-import RegisterWorker from './components/Admin/registerWorker';
+import RegisterWorker from './components/Manager/registerWorker';
 import RegisterManager from './components/Admin/registerManager';
 import Signup from './components/Customer/signup';
 import AddProduct from './components/Admin/addProduct';
