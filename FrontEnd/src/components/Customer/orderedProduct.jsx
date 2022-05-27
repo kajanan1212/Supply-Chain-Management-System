@@ -20,6 +20,20 @@ class OrderedProduct extends Component {
             // console.log(this.state.orders[0])
         });
     }
+
+    handleStatusDisplay = (state) => {
+        if (state === 'created' || state === 'paid' || state === 'trainsheduled') {
+            return 'Product in Company'
+        } else if (state === 'traintransport') {
+            return 'Product is on Train'
+        } else if (state === 'recievedstore' || state === 'routescheduled' || state === 'truckscheduled') {
+            return 'Product Received to nearby store'
+        } else if (state === 'ontheway') {
+            return 'Your products is about to deliver'
+        } else {
+            return 'Deliverd'
+        }
+    }
     render() {
         if (this.state.orders.length === 0) return <h1 className='d-flex justify-content-center text-primary mt-2'>No Orders Yet</h1>;
         return (
@@ -29,6 +43,7 @@ class OrderedProduct extends Component {
                 <div className='d-flex justify-content-center row'>
 
                     {this.state.orders.map(order => {
+                        console.log(order)
                         const x = new Date(order[0].date_time);
                         var delivarydate = new Date().setDate(x.getDate() + 10);
                         return (< div className="col-5 border border-4 border-dark p-3" style={{ margin: '25px', width: '50%' }}>
@@ -56,8 +71,8 @@ class OrderedProduct extends Component {
                             </div>
                             <div className='row'>
                                 <div className='col d-flex justify-content-end'>
-                                    <button className='btn btn-primary'>
-                                        Transported
+                                    <button className='btn btn-primary' disabled>
+                                        {this.handleStatusDisplay(order[0].state)}
                                     </button>
                                 </div>
                                 <div className='col d-flex justify-content-start'>

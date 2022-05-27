@@ -18,6 +18,11 @@ import NewOrders from './components/admin/neworders';
 import ScheduledOrders from './components/admin/scheduledOrder';
 import ScheduleTrainTo from './components/admin/scheduleTrainTo';
 import PastOrders from './components/admin/pastOrders';
+import StoreManager from './components/store/storeDashboard';
+import ScheduleTruck from './components/store/scheduletruck';
+import SetRoutes from './components/store/setRoutes';
+import OrdersOnTrain from './components/store/ordersOnTrain';
+import DriverOnTrip from './components/store/driverOnTrip';
 
 class App extends React.Component {
   state = { customer: [], role: '' }
@@ -47,7 +52,7 @@ class App extends React.Component {
         <Route path='/admin/neworder' element={<NewOrders />} />
         {/* <Route path='/admin/pastorder' element={<PastOrder />} /> */}
         <Route path='/admin/scheduledorder' element={<ScheduledOrders />} />
-        {/* <Route path="*" element={<Navigate to="/admin" replace />} /> */}
+        <Route path="*" element={<Navigate to="/admin" replace />} />
       </Routes >
       <Footer />
     </div>)
@@ -55,13 +60,14 @@ class App extends React.Component {
     const store = (<div>
       < Navbar user={this.state.customer} role={this.state.role} />
       < Routes >
-        <Route path='/store' element={<AddProduct user={this.state.customer} />} />
-        <Route path='/store/neworder' element={<OrderedProduct customer_id={this.state.customer.customer_id} />} />
-        <Route path='/store/finishedorder' element={<AddProduct user={this.state.customer} />} />
-        <Route path='/store/scheduledorder' element={<AddProduct user={this.state.customer} />} />
-        <Route path='/store/scheduletruck' element={<AddProduct user={this.state.customer} />} />
-        <Route path='/store/scheduledriver' element={<AddProduct user={this.state.customer} />} />
-        <Route path='/store/scheduleassistant' element={<AddProduct user={this.state.customer} />} />
+        <Route path='/store' element={<StoreManager user={this.state.customer} />} />
+        <Route path='/store/setroutes' element={<SetRoutes store_id={this.state.customer.store_id} />} />
+        <Route path='/store/driver' element={<DriverOnTrip store_id={this.state.customer.store_id} />} />
+        <Route path='/store/ordersontrain' element={<OrdersOnTrain store_id={this.state.customer.store_id} />} />
+        <Route path='/store/neworder' element={<OrderedProduct store_id={this.state.customer.store_id} />} />
+        <Route path='/store/finishedorder' element={<AddProduct store_id={this.state.customer} />} />
+        <Route path='/store/scheduledorder' element={<AddProduct store_id={this.state.customer} />} />
+        <Route path='/store/scheduletruck' element={<ScheduleTruck store_id={this.state.customer.store_id} />} />
         <Route path="*" element={<Navigate to="/store" replace />} />
       </Routes >
       <Footer />
