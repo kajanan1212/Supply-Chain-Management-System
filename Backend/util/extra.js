@@ -126,26 +126,16 @@
 // => f9b327e70bbcf42494ccb28b2d98e00e
 
 // const getUniqId = require("../common/crypto_id");
-// console.log(getUniqId("customer"))
+// console.log(getUniqId("ts"))
+const moment = require('moment');
 
-const c = {
-    "order_id": "ord_87db3087d50b4d70",
-    "product_id": "pro_16",
-    "count": 1,
-    "customer_id": "customer_3fe9234cd3ebba5b",
-    "address": "asf",
-    "city": "fort",
-    "district": "colombo",
-    "date_time": "2022-05-16T12:26:29.000Z",
-    "state": "created",
-    "total_price": 22000,
-    "capacity": 400,
-    "train_id": 1,
-    "train_name": "Nuwara Devi",
-    "destination": "Colombo",
-    "start_time": "06:00:00",
-    "end_time": "09:00:00",
-    "stops": "Kegalle,Veyangoda,Gampaha,Colombo"
-}
+const date = new Date().toLocaleTimeString();
+const s = moment("10:03:42", "HH:mm:ss")
+// console.log(s.diff("12:04:11", "HH:mm:ss"))
 
-console.log(c.capacity)
+console.log(new Date())
+// var now = moment(new Date()); //todays date
+// var end = moment("12:03:42", "HH:mm:ss"); // another date
+// var duration = moment.duration(now.diff(end));
+// var days = duration.asDays();
+// console.log(days)

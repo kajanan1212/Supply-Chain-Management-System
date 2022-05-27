@@ -36,9 +36,6 @@ class Navbar extends React.Component {
 
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item">
-                                    <Link className="nav-link fw-bold" aria-current="page" to="/admin/addproduct">Add Product</Link>
-                                </li>
-                                <li className="nav-item">
                                     <Link className="nav-link fw-bold" to="/admin/neworder">New Orders</Link>
                                 </li>
                                 <li className="nav-item">
@@ -70,7 +67,10 @@ class Navbar extends React.Component {
                                     <Link className="nav-link fw-bold" aria-current="page" to="/store/scheduletruck">Schedule Truck</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link fw-bold" aria-current="page" to="/store/scheduledriver">Schedule Driver</Link>
+                                    <Link className="nav-link fw-bold" aria-current="page" to="/store/ordersontrain">Orders On Train</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link fw-bold" aria-current="page" to="/store/driver">Driver</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link className="nav-link fw-bold" aria-current="page" to="/store/scheduleassistant">Schedule Assistant</Link>
