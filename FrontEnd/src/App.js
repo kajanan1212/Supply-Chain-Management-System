@@ -23,6 +23,7 @@ import ScheduleTruck from './components/store/scheduletruck';
 import SetRoutes from './components/store/setRoutes';
 import OrdersOnTrain from './components/store/ordersOnTrain';
 import DriverOnTrip from './components/store/driverOnTrip';
+import LoadToTrain from './components/admin/loadtotrain';
 
 class App extends React.Component {
   state = { customer: [], role: '' }
@@ -46,6 +47,7 @@ class App extends React.Component {
         <Route path='/admin/registerManager' element={<RegisterManager />} />
         <Route path='/admin/registerWorker' element={<RegisterWorker />} />
         <Route path='/admin/addProduct' element={<AddProduct />} />
+        <Route path='/admin/loadtotrain' element={<LoadToTrain />} />
         <Route path='/admin/scheduletrain' element={<ScheduleTrain />} />
         <Route path='/admin/scheduletrainto' element={<ScheduleTrainTo />} />
         <Route path='/admin/pastorders' element={<PastOrders />} />

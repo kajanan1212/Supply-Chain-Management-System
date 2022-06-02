@@ -33,11 +33,17 @@ router.get('/scheduletrainto', (req, res) => {
     })
 });
 
-
-
 router.post('/scheduletrainto', (req, res) => {
-    const a = req.body;
-    const sql = a.map(ord_id => `UPDATE customer_order SET state = 'trainsheduled' WHERE (order_id = '` + ord_id + `')`)
+    const { orderID, train_id } = req.body;
+    // res.send(train_id)
+    // const sql = orderID.map(ord_id => "UPDATE customer_order SET state= 'trainsheduled' WHERE (order_id = ' + ord_id + "')")
+    const sql2 = orderID.map(ord_id => "UPDATE customer_order SET state= 'trainsheduled' WHERE (order_id='" + ord_id + "')")
+    const sql1 = orderID.map(ord_id => "INSERT INTO train_schedule (train_id, order_id) VALUES (" + train_id + ",'" + ord_id + "')")
+    const sql = sql1.concat(sql2);
+
+    // sql.push()
+    // // sql.push()
+    // console.log(sql2)
     db.query(sql.join(';'), (err, result) => { });
 
 });
@@ -55,5 +61,26 @@ router.get('/trainschedule', (req, res) => {
         res.send(result);
     })
 });
+
+router.get('/scheduletrain', (req, res) => {
+    const sql = ["select lower(destination) as district from train", "SELECT distinct district FROM places natural join train_schedule where (state='scheduled' or state ='shipping');"];
+    db.query(sql.join(';'), (err, result) => {
+        res.send(result);
+    })
+})
+
+router.get('/loadtotrain', (req, res) => {
+    const sql = "select * from (customer_order left outer join train_schedule using(order_id)) left outer join train using(train_id) where train_schedule.state='scheduled'";
+    db.query(sql, (err, result) => {
+        res.send(result);
+    })
+})
+
+router.post('/loadtotrain', (req, res) => {
+    const trainIDs = req.body.map(id => "update train_schedule set state='shipping' where train_id = " + id);
+    db.query(trainIDs.join(';'), (err, result) => {
+        res.send(result);
+    })
+})
 
 module.exports = router;
