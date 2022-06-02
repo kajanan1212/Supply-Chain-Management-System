@@ -26,10 +26,7 @@ router.post('/setroutes', (req, res) => {
         "Insert into transports values('" + d.route + "','" + d.order_id + "')"
     ))
 
-    db.query(sql.join(";"), (err, result) => {
-        console.log(result)
-        console.log(err)
-    })
+    db.query(sql.join(";"), (err, result) => { })
 
     const sql2 = data.map(d => (
         "update customer_order set state='routescheduled'  where order_id in (select  order_id from places where district = (select first_name from store where store_id='" + d.store_id + "' and order_id='" + d.order_id + "')) "
@@ -43,7 +40,6 @@ router.get('/ordersontrain', (req, res) => {
     const sql = "select * from customer_order where order_id in (select order_id from places where (district = (select first_name from store where store_id = ?)) and state='traintransport')";
     db.query(sql, data, (err, result) => {
         res.send(result);
-        console.log(err)
     })
 })
 
@@ -53,9 +49,7 @@ router.post('/ordersontrain', (req, res) => {
     const sql = data.map(d => (
         "Update customer_order set state='recievedstore' where order_id='" + d.order_id + "'"
     ))
-    db.query(sql.join(";"), (err, result) => {
-        console.log(err)
-    })
+    db.query(sql.join(";"), (err, result) => { })
 });
 
 router.get('/scheduletruck', (req, res) => {
@@ -69,12 +63,16 @@ router.get('/scheduletruck', (req, res) => {
 })
 
 router.post('/scheduletruck', (req, res) => {
-    const { truck_id, assistant, driver_id, route_id } = req.body;
+    const { truck_id, assistant, driver_id, route_id, products } = req.body;
     const scheduleID = getUniqId('ts');
-    const sql = "insert into truck_schedule(`truck_s_id`, `truck_id`, `route_id`, `driver_id`, `assistant_id`) VALUES ('" + scheduleID + "', '" + truck_id + "', '" + route_id + "', '" + driver_id + "', '" + assistant + "')";
-    db.query(sql, (err, result) => {
+    const contains = products.map(pro => { return "Insert into contains(truck_s_id,order_id) values('" + scheduleID + "','" + pro.order_id + "')" })
+    const order = products.map(pro => { return "UPDATE customer_order set state='truckscheduled' where order_id='" + pro.order_id + "'" })
+    const tempSQL = contains.concat(order);
+    const sql1 = "insert into truck_schedule(`truck_s_id`, `truck_id`, `route_id`, `driver_id`, `assistant_id`) VALUES ('" + scheduleID + "', '" + truck_id + "', '" + route_id + "', '" + driver_id + "', '" + assistant + "')";
+    tempSQL.push(sql1);
+    console.log(tempSQL)
+    db.query(tempSQL.join(';'), (err, result) => {
         res.send(result);
-        console.log(err)
     })
 })
 
@@ -83,7 +81,6 @@ router.get('/driver', (req, res) => {
     const sql = "select * from truck_schedule left outer join leads using(route_id) where state!='end' and store_id='" + data + "'";
     db.query(sql, (err, result) => {
         res.send(result);
-        console.log(err)
     })
 })
 
@@ -93,14 +90,11 @@ router.post('/driver', (req, res) => {
     console.log(scheduleId)
     let sql = [];
     if (state === 'ondelivery') {
-        sql = ["UPDATE truck_schedule SET state='ondelivery',start_time = '" + time + "'WHERE (`truck_s_id` = '" + scheduleId + "')", "INSERT INTO working_hour (`truck_s_id`, `worker_id`, `type`) VALUES ('" + scheduleId + "', '" + driver_id + "', 'driver')", "INSERT INTO working_hour (`truck_s_id`, `worker_id`, `type`) VALUES ('" + scheduleId + "', '" + assistant_id + "', 'assistant')"]
+        sql = ["UPDATE truck_schedule SET state='ondelivery',start_time = '" + time + "'WHERE (`truck_s_id` = '" + scheduleId + "')", "INSERT INTO working_hour (`truck_s_id`, `worker_id`, `type`) VALUES ('" + scheduleId + "', '" + driver_id + "', 'driver')", "INSERT INTO working_hour (`truck_s_id`, `worker_id`, `type`) VALUES ('" + scheduleId + "', '" + assistant_id + "', 'assistant')", "update customer_order set state = 'ontheway' where order_id in (select order_id from contains where truck_s_id='" + scheduleId + "')"]
     } else {
-        sql = ["UPDATE truck_schedule SET state='end',end_time = '" + time + "' WHERE (`truck_s_id` = '" + scheduleId + "')", "update  working_hour left outer join truck_schedule using(truck_s_id) set worked_hours=REPLACE(SUBSTRING(sec_to_time(TIMESTAMPDIFF(SECOND,start_time,end_time)),2,4),':','.')  where (truck_s_id = '" + scheduleId + "') ;"]
+        sql = ["UPDATE truck_schedule SET state='end',end_time = '" + time + "' WHERE (`truck_s_id` = '" + scheduleId + "')", "update  working_hour left outer join truck_schedule using(truck_s_id) set worked_hours=REPLACE(SUBSTRING(sec_to_time(TIMESTAMPDIFF(SECOND,start_time,end_time)),2,4),':','.')  where (truck_s_id = '" + scheduleId + "') ", "update customer_order set state = 'delivered' where order_id in (select order_id from contains where truck_s_id='" + scheduleId + "')"]
 
     }
-    db.query(sql.join(';'), (err, result) => {
-        res.send(result);
-        console.log(err)
-    })
+    db.query(sql.join(';'), (err, result) => { })
 })
 module.exports = router;

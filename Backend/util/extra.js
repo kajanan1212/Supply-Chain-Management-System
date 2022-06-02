@@ -106,21 +106,23 @@
 // //     const allUsers = await Customer.fetchAll();
 // //     res.send(allUsers);
 // // }
+const bcrypt = require("bcrypt");
 
-// async function postUser(req, res, next) {
-//     let user = await Customer.findByEmail(req.body.email);
-//     if (user) return res.status(400).send('User email already registered');
+async function postUser(pass) {
+    // let user = await Customer.findByEmail(req.body.email);
+    // if (user) return res.status(400).send('User email already registered');
 
-//     user = new Customer(_.pick(req.body, ['name', 'email', 'password', 'gender']));
-//     const salt = await bcrypt.genSalt(10);
-//     user.password = await bcrypt.hash(user.password, salt);
-//     await user.save();
+    // user = new Customer(_.pick(req.body, ['name', 'email', 'password', 'gender']));
+    const salt = await bcrypt.genSalt(10);
+    const password = await bcrypt.hash(pass, salt);
+    console.log(password);
+    // await user.save();
 
-//     const token = user.generateAuthToken();
-//     res.header('x-auth-token', token).send(_.pick(user, ['id', 'name', 'email', 'gender']));
-//     // pick mean {id:req.body.id,name:req.body.name}
-// }
-
+    // const token = user.generateAuthToken();
+    // res.header('x-auth-token', token).send(_.pick(user, ['id', 'name', 'email', 'gender']));
+    // pick mean {id:req.body.id,name:req.body.name}
+}
+postUser('buymore_colombo_001')
 // module.exports.getAllUsers = getAllUsers;
 // module.exports.postUser = postUser;
 // => f9b327e70bbcf42494ccb28b2d98e00e

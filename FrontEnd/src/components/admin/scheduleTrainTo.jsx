@@ -7,16 +7,17 @@ class ScheduleTrainTo extends Component {
         Orders: [],
         compartmentcapacity: 0,
         totalCapacity: 0,
-        scheduleOrders: []
+        scheduleOrders: [],
+        district: ''
     }
 
     async componentDidMount() {
         const district = queryString.parse(location.search);
         await adminServices.getItemsToBeScheduledDW(district).then((response) => {
-            // console.log()
+            // console.log(response.data[0].train_id)
             // const arranged = groupByAttr(response.data, 'order_id')
-            this.setState({ Orders: response.data, compartmentcapacity: response.data[0].compartmentcapacity })
-            console.log(this.state.Orders)
+            this.setState({ Orders: response.data, compartmentcapacity: response.data[0].compartmentcapacity, district: district })
+            // console.log(this.state.Orders)
         });
     }
     render() {
@@ -75,12 +76,13 @@ class ScheduleTrainTo extends Component {
         }
     }
     handleSchedule = () => {
+        // console.log(this.state.district)
         const orderIDs = []
         this.state.scheduleOrders.map(order => orderIDs.push(order.order_id))
-        // console.log(orderIDs)
-        adminServices.scheduleOrdersToTrain(orderIDs)
+        // console.log(orderIDs, this.state.district)
+        adminServices.scheduleOrdersToTrain(orderIDs, this.state.Orders[0].train_id)
             .catch(err => alert('Something went wrong'))
-            .then(window.location.reload())
+            .then(res => console.log(res))
     }
 
 }

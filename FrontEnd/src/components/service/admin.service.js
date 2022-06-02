@@ -22,8 +22,21 @@ const getPastOrders = () => {
     return axios.get('http://localhost:3001/admin/pastorders');
 }
 
-const scheduleOrdersToTrain = (orderIDs) => {
-    return axios.post('http://localhost:3001/admin/scheduletrainto', orderIDs);
+const scheduleOrdersToTrain = (orderID, train_id) => {
+    return axios.post('http://localhost:3001/admin/scheduletrainto', { orderID, train_id });
+}
+
+const getAllTrain = () => {
+    return axios.get('http://localhost:3001/admin/scheduletrain',)
+}
+
+const getItemsLoadToTrain = () => {
+    return axios.get('http://localhost:3001/admin/loadtotrain')
+}
+
+const LoadOrdersToTrain = (data) => {
+    return axios.post('http://localhost:3001/admin/loadtotrain', data)
+
 }
 const adminServices = {
     addProduct,
@@ -32,6 +45,9 @@ const adminServices = {
     getItemsToBeScheduledDW,
     scheduleOrdersToTrain,
     getPastOrders,
+    getAllTrain,
+    getItemsLoadToTrain,
+    LoadOrdersToTrain,
 };
 
 export default adminServices;
