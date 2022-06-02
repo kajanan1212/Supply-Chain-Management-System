@@ -35,7 +35,7 @@ router.post('/login', async (req, res) => {
             // const password = decrypt('$2b$10$ad3h9Xdji0s2FfeErAbanOtDilhQeWOp7Hte5HD2WanNEyhIBSlr6', a.password);
             if (password) {
                 const accessToken = await jwt.sign({ user }, process.env.jwtPrivateKey, { expiresIn: process.env.JWT_EXPIRES_IN });
-                res.json({ accessToken, });
+                res.json({ accessToken, role });
             }
         } else {
             return null;
