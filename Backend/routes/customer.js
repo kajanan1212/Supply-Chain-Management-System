@@ -5,7 +5,7 @@ const getUniqId = require('../common/crypto_id');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    const sql = ["select * from product", "select * from district order by district asc"]
+    const sql = ["select * from product order by title asc", "select * from district order by district asc"]
     db.query(sql.join(';'), (err, result) => {
         res.send(result);
     })
@@ -14,12 +14,20 @@ router.get('/', (req, res) => {
 router.get('/history', (req, res) => {
     const customer_id = req.query;
     // console.log(customer_id)
-    const sql = "select * from (((customer left outer join places using (customer_id)) left outer join customer_order using (order_id)) left outer join has using (order_id)) left outer join product using (product_id) where (customer_id = ? and order_id is not null); ;";
+    const sql = "select * from (((customer left outer join places using (customer_id)) left outer join customer_order using (order_id)) left outer join has using (order_id)) left outer join product using (product_id) where (customer_id = ? and order_id is not null) order by date_time desc ;";
     db.query(sql, [customer_id['0']], (err, result) => {
         res.send(result)
     })
 });
 
+router.post('/history', (req, res) => {
+    const ordID = req.body['orderID']
+    // console.log(ordID);
+    const sql = "update customer_order set state='cancelled' where order_id = ?";
+    db.query(sql, ordID, (err, result) => {
+        res.send(result)
+    })
+});
 
 router.post('/', (req, res) => {
     const a = req.body.dataa;

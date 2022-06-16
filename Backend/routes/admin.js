@@ -77,9 +77,12 @@ router.get('/loadtotrain', (req, res) => {
 })
 
 router.post('/loadtotrain', (req, res) => {
-    const trainIDs = req.body.map(id => "update train_schedule set state='shipping' where train_id = " + id);
-    db.query(trainIDs.join(';'), (err, result) => {
-        res.send(result);
+    const trainShipping = req.body.map(id => "update train_schedule set state='shipping' where (train_id = " + id + " and state='scheduled')");
+    const OrderTransport = req.body.map(id => "update customer_order set state = 'traintransport' where order_id in (select order_id from train_schedule where (train_id = " + id + " and state = 'shipping'))");
+    // trainIDs.push("update customer_order set state = 'traintransport' where order_id in (select order_id from train_schedule where (train_id = " + id + " and state = 'scheduled'))")
+    const arr = trainShipping.concat(OrderTransport);
+    db.query(arr.join(';'), (err, result) => {
+        console.log(err)
     })
 })
 

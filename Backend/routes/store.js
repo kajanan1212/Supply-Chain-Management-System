@@ -47,7 +47,7 @@ router.post('/ordersontrain', (req, res) => {
     const data = req.body;
     console.log(data)
     const sql = data.map(d => (
-        "Update customer_order set state='recievedstore' where order_id='" + d.order_id + "'"
+        "Update customer_order set state='recievedstore' where order_id='" + d.order_id + "'; Update train_schedule set state='end' where order_id='" + d.order_id + "'"
     ))
     db.query(sql.join(";"), (err, result) => { })
 });

@@ -34,6 +34,9 @@ class OrderedProduct extends Component {
             return 'Deliverd'
         }
     }
+    cancelOrder = (order) => {
+        customerServices.cancelOrder(order).then(res => console.log(res))
+    }
     render() {
         if (this.state.orders.length === 0) return <h1 className='d-flex justify-content-center text-primary mt-2'>No Orders Yet</h1>;
         return (
@@ -69,19 +72,28 @@ class OrderedProduct extends Component {
                                     <h6>Total Capacity: {order[0].capacity} m<sup>3</sup></h6>
                                 </div>
                             </div>
-                            <div className='row'>
-                                <div className='col d-flex justify-content-end'>
-                                    <button className='btn btn-primary' disabled>
-                                        {this.handleStatusDisplay(order[0].state)}
-                                    </button>
-                                </div>
-                                <div className='col d-flex justify-content-start'>
-                                    <button className='btn btn-danger'>
-                                        Cancel Order
-                                    </button>
-                                </div>
-
-                            </div>
+                            {(order[0].state === "delivered") ?
+                                <div className='col d-flex justify-content-center'>
+                                    <h5 className="text-success">Order Successfully Delivered</h5>
+                                </div> :
+                                (order[0].state !== "cancelled") ?
+                                    <div className='row'>
+                                        <div className='col d-flex justify-content-end'>
+                                            <button className='btn btn-primary' disabled>
+                                                {this.handleStatusDisplay(order[0].state)}
+                                            </button>
+                                        </div>
+                                        <div className='col d-flex justify-content-start'>
+                                            <button className='btn btn-danger' onClick={() => this.cancelOrder(order[0].order_id)}>
+                                                Cancel Order
+                                            </button>
+                                        </div>
+                                    </div>
+                                    :
+                                    <div className='col d-flex justify-content-center'>
+                                        <h5 className="text-warning">Order Cancelled</h5>
+                                    </div>
+                            }
                         </div>
                         )
                     })}
