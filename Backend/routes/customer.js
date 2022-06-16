@@ -5,7 +5,7 @@ const getUniqId = require('../common/crypto_id');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    const sql = ["select * from product", "select * from district order by district asc"]
+    const sql = ["select * from product order by title asc", "select * from district order by district asc"]
     db.query(sql.join(';'), (err, result) => {
         res.send(result);
     })
