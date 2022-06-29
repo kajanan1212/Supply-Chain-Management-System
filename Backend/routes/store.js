@@ -76,7 +76,7 @@ router.post('/scheduletruck', (req, res) => {
     })
 })
 
-router.get('/driver', (req, res) => {
+router.get('/driverondelivery', (req, res) => {
     const data = req.query[0];
     const sql = "select * from truck_schedule left outer join leads using(route_id) where state!='end' and store_id='" + data + "'";
     db.query(sql, (err, result) => {
@@ -84,7 +84,7 @@ router.get('/driver', (req, res) => {
     })
 })
 
-router.post('/driver', (req, res) => {
+router.post('/driverondelivery', (req, res) => {
     const { scheduleId, state, driver_id, assistant_id } = req.body;
     const time = new Date().toISOString().slice(0, 19).replace('T', ' ');
     console.log(scheduleId)
@@ -97,4 +97,13 @@ router.post('/driver', (req, res) => {
     }
     db.query(sql.join(';'), (err, result) => { })
 })
+
+router.get('/', (req, res) => {
+    const data = req.query['0'];
+    const sql = ["select count(route_id) as data from leads where store_id='" + data + "'", "select count(truck_id) as data from owns where store_id='" + data + "'", "select count(worker_id) as data from hires where store_id='" + data + "'", "select count(*) as data from customer_order where order_id in (select order_id from places where (district = (select first_name from store where store_id = '" + data + "')) and state='traintransport')"]
+    db.query(sql.join(';'), (err, result) => {
+        res.send(result);
+    })
+})
+
 module.exports = router;

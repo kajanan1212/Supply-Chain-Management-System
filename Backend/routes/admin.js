@@ -1,8 +1,25 @@
 const express = require('express');
 const db = require('../util/database');
 const getUniqId = require('../common/crypto_id');
+const pdf = require('html-pdf');
+
+const pdfTemplate = require('../util/QSR_pdf_Templete');
 
 const router = express.Router();
+
+router.post('/', (req, res) => {
+    pdf.create(pdfTemplate(req.body), {}).toFile('./routes/result.pdf', (err) => {
+        if (err) {
+            res.send(Promise.reject());
+        }
+        res.send(Promise.resolve());
+    });
+});
+
+router.get('/', (req, res) => {
+    console.log(__dirname)
+    res.sendFile(__dirname + 'result.pdf');
+})
 
 router.get('/neworder', (req, res) => {
     const sql = "select * from(((train left outer join places on(train.destination = places.district)) left outer join customer_order using (order_id)) left outer join has using(order_id)) where((order_id is not null) and state = 'created') order by date_time desc";

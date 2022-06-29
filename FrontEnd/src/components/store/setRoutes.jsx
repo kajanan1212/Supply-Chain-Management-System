@@ -1,4 +1,3 @@
-import Axios from 'axios'
 import React, { Component } from 'react'
 import storeService from '../service/store.service';
 
@@ -9,11 +8,10 @@ class SetRoutes extends Component {
     }
 
     async componentDidMount() {
-        console.log(this.props)
+        // console.log(this.props)
         await storeService.getOrderToSetRoute(this.props.store_id).then((response) => {
-            console.log(response)
             this.setState({ orders: response.data[0], routes: response.data[1] })
-
+            // window.location.reload()
         });
     }
 

@@ -128,7 +128,7 @@ postUser('buymore_colombo_001')
 // => f9b327e70bbcf42494ccb28b2d98e00e
 
 const getUniqId = require("../common/crypto_id");
-console.log(getUniqId("assistant"))
+console.log(getUniqId("route"))
 const moment = require('moment');
 
 const date = new Date().toLocaleTimeString();
@@ -149,3 +149,33 @@ const s = moment("10:03:42", "HH:mm:ss")
 // insert into leads(route_id, store_id) values("route_12", "store_1b10c3f92d9be701");
 // insert into leads(route_id, store_id) values("route_13", "store_1b10c3f92d9be701");
 // insert into leads(route_id, store_id) values("route_14", "store_1b10c3f92d9be701");
+
+
+insert into leads(route_id, store_id) values("route_15", "store_b75d288ed6dd8aa1");
+insert into leads(route_id, store_id) values("route_16", "store_b75d288ed6dd8aa1");
+insert into leads(route_id, store_id) values("route_17", "store_b75d288ed6dd8aa1");
+insert into leads(route_id, store_id) values("route_18", "store_b75d288ed6dd8aa1");
+insert into leads(route_id, store_id) values("route_19", "store_b75d288ed6dd8aa1");
+insert into leads(route_id, store_id) values("route_20", "store_b75d288ed6dd8aa1");
+
+insert into leads(route_id, store_id) values("route_21", "store_d207fd48aeinfnna2");
+insert into leads(route_id, store_id) values("route_22", "store_d207fd48aeinfnna2");
+insert into leads(route_id, store_id) values("route_23", "store_d207fd48aeinfnna2");
+insert into leads(route_id, store_id) values("route_24", "store_d207fd48aeinfnna2");
+insert into leads(route_id, store_id) values("route_25", "store_d207fd48aeinfnna2");
+
+
+
+
+
+
+
+
+--get the total count of products in past 120 days
+SELECT * FROM customer_order natural join has WHERE date_time > date_add(date_time, Interval - 120 day);
+
+--Most sold product
+select order_id, total_price, product_id, sum(count) as count FROM customer_order natural join has group by product_id order by count desc limit 1;
+select order_id, total_price, product_id, sum(count) as count FROM customer_order natural join has group by product_id order by count asc limit 1;
+
+SELECT DATE_ADD("2022-06-18 14:19:03", INTERVAL 10 DAY);   

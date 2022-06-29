@@ -6,7 +6,7 @@ import Footer from './components/footer';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import React from 'react';
 import authService from './components/service/auth.service';
-import RegisterWorker from './components/admin/registerWorker';
+import RegisterWorker from './components/store/addNewWorker';
 import RegisterManager from './components/admin/registerManager';
 import Signup from './components/Customer/signup';
 import AddProduct from './components/admin/addProduct';
@@ -45,14 +45,13 @@ class App extends React.Component {
         <Route path='/admin/trainschedule' element={<TrainSchedule />} />
         <Route path='/admin' element={<AdminDashboard />} />
         <Route path='/admin/registerManager' element={<RegisterManager />} />
-        <Route path='/admin/registerWorker' element={<RegisterWorker />} />
+        {/* <Route path='/admin/registerWorker' element={<RegisterWorker />} /> */}
         <Route path='/admin/addProduct' element={<AddProduct />} />
         <Route path='/admin/loadtotrain' element={<LoadToTrain />} />
         <Route path='/admin/scheduletrain' element={<ScheduleTrain />} />
         <Route path='/admin/scheduletrainto' element={<ScheduleTrainTo />} />
         <Route path='/admin/pastorders' element={<PastOrders />} />
         <Route path='/admin/neworder' element={<NewOrders />} />
-        {/* <Route path='/admin/pastorder' element={<PastOrder />} /> */}
         <Route path='/admin/scheduledorder' element={<ScheduledOrders />} />
         <Route path="*" element={<Navigate to="/admin" replace />} />
       </Routes >
@@ -62,15 +61,16 @@ class App extends React.Component {
     const store = (<div>
       < Navbar user={this.state.customer} role={this.state.role} />
       < Routes >
-        <Route path='/store' element={<StoreManager user={this.state.customer} />} />
+        <Route path='/store' element={<StoreManager store_id={this.state.customer.store_id} />} />
         <Route path='/store/setroutes' element={<SetRoutes store_id={this.state.customer.store_id} />} />
-        <Route path='/store/driver' element={<DriverOnTrip store_id={this.state.customer.store_id} />} />
+        <Route path='/store/driverondelivery' element={<DriverOnTrip store_id={this.state.customer.store_id} />} />
         <Route path='/store/ordersontrain' element={<OrdersOnTrain store_id={this.state.customer.store_id} />} />
         <Route path='/store/neworder' element={<OrderedProduct store_id={this.state.customer.store_id} />} />
         <Route path='/store/finishedorder' element={<AddProduct store_id={this.state.customer} />} />
         <Route path='/store/scheduledorder' element={<AddProduct store_id={this.state.customer} />} />
         <Route path='/store/scheduletruck' element={<ScheduleTruck store_id={this.state.customer.store_id} />} />
-        <Route path="*" element={<Navigate to="/store" replace />} />
+        <Route path='/store/addnewworker' element={<RegisterWorker store_id={this.state.customer.store_id} />} />
+        <Route path="*" element={<Navigate to="/store" />} />
       </Routes >
       <Footer />
     </div>)
@@ -91,7 +91,7 @@ class App extends React.Component {
       < Routes >
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
-        <Route path="*" element={<Navigate to="/login" replace />} />
+        {/* <Route path="*" element={<Navigate to="/store" replace />} /> */}
       </Routes >
       <Footer />
     </div>)

@@ -63,18 +63,6 @@ class Navbar extends React.Component {
                                 <li className="nav-item">
                                     <Link className="nav-link fw-bold" aria-current="page" to="/store/scheduledorder">Finished Orders</Link>
                                 </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link fw-bold" aria-current="page" to="/store/scheduletruck">Schedule Truck</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link fw-bold" aria-current="page" to="/store/ordersontrain">Orders On Train</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link fw-bold" aria-current="page" to="/store/driver">Driver</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link fw-bold" aria-current="page" to="/store/scheduleassistant">Schedule Assistant</Link>
-                                </li>
                             </ul>}
                     </div>
                     {(this.props.user.length !== 0) &&

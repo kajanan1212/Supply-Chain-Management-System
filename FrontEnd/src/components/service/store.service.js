@@ -34,13 +34,16 @@ const setScheduleTruck = (data) => {
 }
 
 const getDriversOnTrip = (storeID) => {
-    return axios.get('http://localhost:3001/store/driver', { params: storeID });
+    return axios.get('http://localhost:3001/store/driverondelivery', { params: storeID });
 }
 
 const changeState = (scheduleId, state, driver_id, assistant_id) => {
-    return axios.post('http://localhost:3001/store/driver', { scheduleId, state, driver_id, assistant_id })
+    return axios.post('http://localhost:3001/store/driverondelivery', { scheduleId, state, driver_id, assistant_id })
 }
 
+const getDetails = (storeID) => {
+    return axios.get('http://localhost:3001/store', { params: storeID })
+}
 const storeService = {
     getOrderToSetRoute,
     setRoutes,
@@ -51,6 +54,7 @@ const storeService = {
     setScheduleTruck,
     getDriversOnTrip,
     changeState,
+    getDetails,
 };
 
 export default storeService;

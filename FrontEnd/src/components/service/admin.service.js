@@ -1,6 +1,10 @@
 import axios from "axios";
 
 
+const pdfparse = (dataa) => {
+    // console.log(dataa)
+    return axios.post('http://localhost:3001/admin', dataa);
+}
 const addProduct = (dataa) => {
     // console.log(dataa)
     return axios.post('http://localhost:3001/admin/addproduct', { dataa });
@@ -39,6 +43,7 @@ const LoadOrdersToTrain = (data) => {
 
 }
 const adminServices = {
+    pdfparse,
     addProduct,
     getNewOrders,
     getScheduledOrders,
