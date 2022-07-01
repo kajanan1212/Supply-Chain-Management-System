@@ -7,8 +7,22 @@ import adminServices from '../service/admin.service';
 
 class AdminDashboard extends Component {
     state = {
-        name: 'admin'
+        name: 'admin',
+        totalStores: 0,
+        totalTrains: 0,
+        totalProducts: 0
     }
+    componentDidMount() {
+        adminServices.getDetails().then((response) => {
+            console.log(response.data[2][0]['count'])
+            this.setState({
+                totalStores: response.data[0][0]['count'], totalProducts: response.data[1][0]['count'], totalTrains: response.data[2][0]['count']
+            })
+            // window.location.reload()
+        });
+        // console.log(this.state)
+    }
+
     render() {
         return (
             <div className='mx-4 my-4'>
@@ -19,14 +33,14 @@ class AdminDashboard extends Component {
                     <div className="row  text-center">
                         <div className="col mx-5 my-4 rounded-3  border border-3 border-dark">
                             <h5 className='pt-4'>Total Stores</h5>
-                            <h1>21</h1>
+                            <h1>{this.state.totalStores}</h1>
                             <button className='btn btn-primary mb-4 mt-3 rounded-pill px-5'>
                                 Add New Store
                             </button>
                         </div>
                         <div className="col mx-5 my-4 rounded-3  border border-3 border-dark">
                             <h5 className='pt-4'>Total Products</h5>
-                            <h1>45</h1>
+                            <h1>{this.state.totalProducts}</h1>
                             <Link className="nav-link fw-bold" aria-current="page" to="/admin/addproduct">
                                 <button className='btn btn-primary mb-4 mt-3 rounded-pill px-5'>
                                     Add New Product
@@ -38,7 +52,7 @@ class AdminDashboard extends Component {
                     <div className="row  text-center">
                         <div className="col mx-5 my-4 rounded-3  border border-3 border-dark">
                             <h5 className='pt-4'>Total Trains</h5>
-                            <h1>21</h1>
+                            <h1>{this.state.totalTrains}</h1>
                             <Link className="nav-link fw-bold" aria-current="page" to="/admin/loadtotrain"> <button className='btn btn-primary mb-4 mt-3 rounded-pill px-5'>
                                 Show Scheduled Trains
                             </button></Link>
@@ -55,12 +69,12 @@ class AdminDashboard extends Component {
         );
     }
     createAndDownloadPdf = () => {
-        adminServices.pdfparse(this.state)
+        adminServices.pdfparse(this.state.name)
             .then(() => axios.get('http://localhost:3001/admin', { responseType: 'blob' }))
             .then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
-                console.log(pdfBlob)
+                // console.log(pdfBlob)
                 // saveAs(res.data, 'new.txt');
                 saveAs(pdfBlob, 'newPdf.pdf');
                 // new Blob([res.data], { type: 'application/pdf' }),`sample.pdf`);

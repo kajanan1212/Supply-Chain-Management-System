@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 const pdfparse = (dataa) => {
     // console.log(dataa)
     return axios.post('http://localhost:3001/admin', dataa);
@@ -40,6 +39,10 @@ const getItemsLoadToTrain = () => {
 
 const LoadOrdersToTrain = (data) => {
     return axios.post('http://localhost:3001/admin/loadtotrain', data)
+}
+
+const getDetails = () => {
+    return axios.get('http://localhost:3001/admin/detail');
 
 }
 const adminServices = {
@@ -53,6 +56,7 @@ const adminServices = {
     getAllTrain,
     getItemsLoadToTrain,
     LoadOrdersToTrain,
+    getDetails,
 };
 
 export default adminServices;
