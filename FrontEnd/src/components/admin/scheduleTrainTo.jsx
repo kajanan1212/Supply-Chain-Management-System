@@ -16,6 +16,7 @@ class ScheduleTrainTo extends Component {
         await adminServices.getItemsToBeScheduledDW(district).then((response) => {
             // console.log(response.data[0].train_id)
             // const arranged = groupByAttr(response.data, 'order_id')
+            console.log(response);
             this.setState({ Orders: response.data, compartmentcapacity: response.data[0].compartmentcapacity, district: district })
             // console.log(this.state.Orders)
         });
@@ -83,6 +84,7 @@ class ScheduleTrainTo extends Component {
         adminServices.scheduleOrdersToTrain(orderIDs, this.state.Orders[0].train_id)
             .catch(err => alert('Something went wrong'))
             .then(res => console.log(res))
+        // .then(window.location = '/admin')
     }
 
 }

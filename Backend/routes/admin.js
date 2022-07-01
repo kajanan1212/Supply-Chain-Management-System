@@ -59,10 +59,10 @@ router.get('/scheduletrainto', (req, res) => {
 
 router.post('/scheduletrainto', (req, res) => {
     const { orderID, train_id } = req.body;
-    const sql2 = orderID.map(ord_id => "UPDATE customer_order SET state= 'trainsheduled' WHERE (order_id='" + ord_id + "')")
-    const sql1 = orderID.map(ord_id => "INSERT INTO train_schedule (train_id, order_id) VALUES (" + train_id + ",'" + ord_id + "')")
+    const sql2 = orderID.map(ord_id => "UPDATE customer_order SET state= 'trainsheduled' WHERE (order_id=" + db.escape(ord_id) + ")")
+    const sql1 = orderID.map(ord_id => "INSERT INTO train_schedule (train_id, order_id) VALUES (" + db.escape(train_id) + "," + db.escape(ord_id) + ")")
     const sql = sql1.concat(sql2);
-
+    // console.log(sql)
     db.query(sql.join(';'), (err, result) => { });
 
 });
@@ -96,8 +96,8 @@ router.get('/loadtotrain', (req, res) => {
 })
 
 router.post('/loadtotrain', (req, res) => {
-    const trainShipping = req.body.map(id => "update train_schedule set state='shipping' where (train_id = " + id + " and state='scheduled')");
-    const OrderTransport = req.body.map(id => "update customer_order set state = 'traintransport' where order_id in (select order_id from train_schedule where (train_id = " + id + " and state = 'shipping'))");
+    const trainShipping = req.body.map(id => "update train_schedule set state='shipping' where (train_id = " + db.escape(id) + " and state='scheduled')");
+    const OrderTransport = req.body.map(id => "update customer_order set state = 'traintransport' where order_id in (select order_id from train_schedule where (train_id = " + db.escape(id) + " and state = 'shipping'))");
     const arr = trainShipping.concat(OrderTransport);
     db.query(arr.join(';'), (err, result) => {
         console.log(err)
