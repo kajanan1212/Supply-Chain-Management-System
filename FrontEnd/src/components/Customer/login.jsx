@@ -59,6 +59,7 @@ class Login extends Component {
         if (authService.getCurrentUser()) { window.location = '/'; }
         return (
             <div style={{ marginTop: '40px', marginBottom: "260px" }}>
+
                 <div className='d-flex justify-content-center'>
                     <div className="card" style={{ margin: '100px', width: '50%' }}>
                         <div className="card-body">

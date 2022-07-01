@@ -75,7 +75,9 @@ class FrontPage extends Component {
         const { length: count } = this.state.items;
         const items = paginate(this.state.items, this.state.currentPage, this.state.pageSize)
         return (
+
             <div style={{ marginBottom: "70px" }}>
+
                 <div >
                     <div className='row d-flex justify-content-center' style={{ margin: '30px' }}>
                         {items.map(item => (

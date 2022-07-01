@@ -4,16 +4,16 @@ import jwt_decode from 'jwt-decode';
 import authService from './service/auth.service';
 
 class Navbar extends React.Component {
-    // state = {
-    //     customer: []
-    // }
+
     logOut = () => {
         authService.logout();
     };
 
+
     redirect = (page) => {
         window.location = `/` + page;
     }
+
 
     render() {
         return (
@@ -25,6 +25,7 @@ class Navbar extends React.Component {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
+
                         {((this.props.user.length !== 0) && (this.props.user['type'] == 'active')) &&
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item">
@@ -33,6 +34,7 @@ class Navbar extends React.Component {
                             </ul>}
                         {((this.props.user.length !== 0) && (this.props.user['type'] == 'admin')) &&
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
+
                                 <li className="nav-item">
                                     <Link className="nav-link fw-bold" to="/admin/neworder">New Orders</Link>
                                 </li>
@@ -74,6 +76,7 @@ class Navbar extends React.Component {
                             <h5 className='align-middle mt-3 me-3 fw-bolder' style={{ color: '#4A148C', cursor: 'pointer' }} onClick={() => this.redirect('login')}>login</h5>
                             <h5 className='align-middle mt-3 me-3 fw-bolder' style={{ color: '#4A148C', cursor: 'pointer' }} onClick={() => this.redirect('signup')}>signup</h5>
                         </div>}
+
                 </div>
             </nav >
         );
