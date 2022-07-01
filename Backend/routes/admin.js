@@ -4,11 +4,11 @@ const getUniqId = require('../common/crypto_id');
 const pdf = require('html-pdf');
 
 const pdfTemplate = require('../util/QSR_pdf_Templete');
-
+const path = require('path');
 const router = express.Router();
 
 router.post('/', (req, res) => {
-    pdf.create(pdfTemplate(req.body), {}).toFile('./routes/result.pdf', (err) => {
+    pdf.create(pdfTemplate(req.body), {}).toFile('./util/QSRs/result.pdf', (err) => {
         if (err) {
             res.send(Promise.reject());
         }
@@ -17,8 +17,15 @@ router.post('/', (req, res) => {
 });
 
 router.get('/', (req, res) => {
-    console.log(__dirname)
-    res.sendFile(__dirname + 'result.pdf');
+    // let newPath = path.join(__dirname, '../util/QSRs/')
+    // // console.log(newPath)
+    // res.sendFile(newPath + 'result.pdf');
+})
+router.get('/detail', (req, res) => {
+    const sql = ["select count(*) as count from store", "select count(*) as count from product", "select count(*) as count from train"]
+    db.query(sql.join(';'), (err, result) => {
+        res.send(result);
+    })
 })
 
 router.get('/neworder', (req, res) => {
@@ -52,15 +59,10 @@ router.get('/scheduletrainto', (req, res) => {
 
 router.post('/scheduletrainto', (req, res) => {
     const { orderID, train_id } = req.body;
-    // res.send(train_id)
-    // const sql = orderID.map(ord_id => "UPDATE customer_order SET state= 'trainsheduled' WHERE (order_id = ' + ord_id + "')")
     const sql2 = orderID.map(ord_id => "UPDATE customer_order SET state= 'trainsheduled' WHERE (order_id='" + ord_id + "')")
     const sql1 = orderID.map(ord_id => "INSERT INTO train_schedule (train_id, order_id) VALUES (" + train_id + ",'" + ord_id + "')")
     const sql = sql1.concat(sql2);
 
-    // sql.push()
-    // // sql.push()
-    // console.log(sql2)
     db.query(sql.join(';'), (err, result) => { });
 
 });
@@ -96,7 +98,6 @@ router.get('/loadtotrain', (req, res) => {
 router.post('/loadtotrain', (req, res) => {
     const trainShipping = req.body.map(id => "update train_schedule set state='shipping' where (train_id = " + id + " and state='scheduled')");
     const OrderTransport = req.body.map(id => "update customer_order set state = 'traintransport' where order_id in (select order_id from train_schedule where (train_id = " + id + " and state = 'shipping'))");
-    // trainIDs.push("update customer_order set state = 'traintransport' where order_id in (select order_id from train_schedule where (train_id = " + id + " and state = 'scheduled'))")
     const arr = trainShipping.concat(OrderTransport);
     db.query(arr.join(';'), (err, result) => {
         console.log(err)

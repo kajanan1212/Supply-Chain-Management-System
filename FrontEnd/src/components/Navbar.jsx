@@ -32,7 +32,7 @@ class Navbar extends React.Component {
                                 </li>
                             </ul>}
                         {((this.props.user.length !== 0) && (this.props.user['type'] == 'admin')) &&
-                            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                            <ul className="navbar-nav me-auto mb-2 mb-lg-0 ">
                                 <li className="nav-item">
                                     <Link className="nav-link fw-bold" to="/admin/neworder">New Orders</Link>
                                 </li>
@@ -40,7 +40,7 @@ class Navbar extends React.Component {
                                     <Link className="nav-link fw-bold" to="/admin/scheduledorder">Scheduled Orders</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link fw-bold" to="/admin/pastorders">Past Orders</Link>
+                                    <Link className="nav-link fw-bold" to="/admin/pastorders">All Orders</Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link className="nav-link fw-bold" to="/admin/scheduletrain">Schedule Train</Link>

@@ -25,9 +25,7 @@ router.post('/setroutes', (req, res) => {
     const sql = data.map(d => (
         "Insert into transports values('" + d.route + "','" + d.order_id + "')"
     ))
-
     db.query(sql.join(";"), (err, result) => { })
-
     const sql2 = data.map(d => (
         "update customer_order set state='routescheduled'  where order_id in (select  order_id from places where district = (select first_name from store where store_id='" + d.store_id + "' and order_id='" + d.order_id + "')) "
     ))
