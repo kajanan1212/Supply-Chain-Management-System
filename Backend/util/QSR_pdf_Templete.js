@@ -1,4 +1,3 @@
-// import logo from ".\QSRs\logo.jpeg"
 module.exports = ({ name }) => {
    const today = new Date();
    return `
