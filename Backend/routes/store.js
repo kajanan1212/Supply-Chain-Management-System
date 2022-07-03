@@ -52,11 +52,12 @@ router.post('/ordersontrain', (req, res) => {
 
 router.get('/scheduletruck', (req, res) => {
     const store_id = req.query[0];
-    const sql = ["select * from routes natural join leads where store_id=" + db.escape(store_id) + "", "select * from ((leads left outer join routes using(route_id)) left outer join transports using(route_id)) left outer join customer_order using(order_id) where (state='routescheduled' and store_id=" + db.escape(store_id) + ")", "select * from (truck natural join owns) where truck_id not in  (select truck_id from truck_schedule where (state='ondelivery' or state='scheduled') ) and store_id='store_fd07fd48ae073554'",
-    "select * from driver where driver_id in (select worker_id from store left outer join hires using(store_id) where hires.workerType = 'driver' and store.store_id = " + db.escape(store_id) + " and hires.worker_id not in(select * from(select driver_id from truck_schedule where store_id = " + db.escape(store_id) + " order by date_time desc limit 1) as last_scheduled_driver)) "]
+    const sql = ["select * from routes natural join leads where store_id=" + db.escape(store_id) + "", "select * from ((leads left outer join routes using(route_id)) left outer join transports using(route_id)) left outer join customer_order using(order_id) where (state='routescheduled' and store_id=" + db.escape(store_id) + ")", "select * from (truck natural join owns) where truck_id not in  (select truck_id from truck_schedule where (state='ondelivery' or state='scheduled') ) and store_id=" + db.escape(store_id) + "",
+    "select * from driver where driver_id in (select worker_id from store left outer join hires using(store_id) where hires.workerType = 'driver' and store.store_id = " + db.escape(store_id) + " and hires.worker_id not in(select * from(select driver_id from truck_schedule where store_id = " + db.escape(store_id) + " order by date_time desc limit 1) as last_scheduled_driver)) ",
+    "select worker_id as assistant_id from store left outer join hires using(store_id) where hires.workerType = 'assistant' and store.store_id = " + db.escape(store_id) + " and((hires.worker_id not in (select * from(select assistant_id from(truck_schedule left outer join assistant using(assistant_id)) left outer join hires on assistant.assistant_id = hires.worker_id where hires.workerType = 'assistant' and hires.store_id = " + db.escape(store_id) + " order by date_time desc limit 2) as last_scheduled_assistant)) or (1 not in(select * from(select  count(assistant_id) from (select distinct assistant_id from (select assistant_id from (truck_schedule left outer join assistant using(assistant_id)) left outer join hires on assistant.assistant_id = hires.worker_id where hires.workerType = 'assistant' and hires.store_id = " + db.escape(store_id) + " order by date_time desc limit 2) as t1) as t2) as t3)))"]
     db.query(sql.join(';'), (err, result) => {
         res.send(result);
-        // console.log(err)
+        // console.log(result)
     })
 })
 
