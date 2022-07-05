@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 class RegisterManager extends Component {
-    state = {
+    state = { 
         name: "",
         phoneNo: "",
         shop: "",
@@ -21,7 +21,7 @@ class RegisterManager extends Component {
     }
 
     onFormSubmit = (e) => {
-
+       
         if (!this.state.name) {
             alert("Enter Name");
             return;
@@ -42,7 +42,7 @@ class RegisterManager extends Component {
 
 
 
-    render() {
+    render() { 
         return (
             <div>
                 <div className='d-flex justify-content-center'>
@@ -80,5 +80,5 @@ class RegisterManager extends Component {
         );
     }
 }
-
+ 
 export default RegisterManager;
