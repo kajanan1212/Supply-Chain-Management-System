@@ -57,11 +57,12 @@ router.get('/scheduletrainto', (req, res) => {
     })
 });
 
+//Trigger added 1
 router.post('/scheduletrainto', (req, res) => {
     const { orderID, train_id } = req.body;
-    const sql2 = orderID.map(ord_id => "UPDATE customer_order SET state= 'trainsheduled' WHERE (order_id=" + db.escape(ord_id) + ")")
-    const sql1 = orderID.map(ord_id => "INSERT INTO train_schedule (train_id, order_id) VALUES (" + db.escape(train_id) + "," + db.escape(ord_id) + ")")
-    const sql = sql1.concat(sql2);
+    // const sql2 = orderID.map(ord_id => "UPDATE customer_order SET state= 'trainsheduled' WHERE (order_id=" + db.escape(ord_id) + ")")
+    const sql = orderID.map(ord_id => "INSERT INTO train_schedule (train_id, order_id) VALUES (" + db.escape(train_id) + "," + db.escape(ord_id) + ")")
+    // const sql = sql1.concat(sql2);
     // console.log(sql)
     db.query(sql.join(';'), (err, result) => { });
 

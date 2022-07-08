@@ -1,8 +1,19 @@
-module.exports = ({ name }) => {
-   const today = new Date();
-   // console.log(totalProducts());
-   return `
-  <!doctype html>
+function findPercentage(new_, old) {
+    return (new_ - old) / old * 100;
+}
+
+function today() {
+    const today = new Date();
+    const dae = today.getDate() + "-" + today.getMonth() + "-" + today.getFullYear();
+    return dae;
+}
+
+module.exports = ({ name, totalProducts }) => {
+
+    // const today = new Date();
+    console.log(today())
+    return `
+ <!doctype html>
 <html>
 
 <head>
@@ -19,7 +30,7 @@ module.exports = ({ name }) => {
             font-size: 22px;
             line-height: 24px;
             font-family: 'Helvetica Neue', 'Helvetica';
-            background-color: #ceaff5;
+            background-color: #b7f3ba;
             color: #555;
         }
 
@@ -45,66 +56,66 @@ module.exports = ({ name }) => {
     </style>
 </head>
 
-<body>
+<body bgcolor:'#eee';>
     <div class="invoice-box">
         <div>
             <!-- <img src={require('../../Images/' + this.props.item.img)} alt="adsakk" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> -->
-            <img src="logo.jpeg" alt="100" style="width:15%;height:auto;">
+            <img src="https://upload.wikimedia.org/wikipedia/en/d/da/BuyMoreLogo.png" alt="100" style="width:40%;height:auto;">
             <!-- <img src="logo.jpeg> -->
 
-        </div>
-        <div>
-            <h2 style=" margin-left: 35%; margin-top: -6%; color:black;">Quartely Sales Report</h2>
-            <div style="margin-top: 7%;">
-                <label style="margin-right: 10px;">Quartely Sales Report Period :</label>
-            </div>
-
-            <div style="margin-top: 5%;">
-                <label>Total Product Sold<span style="margin-left: 110px; margin-right: 10px;">:</span>400</label>
-            </div>
-            <div style="margin-top: 5%;">
-                <label>Total Collection<span style="margin-left: 140px;margin-right: 10px;">:</span></label>
-            </div>
-            <div style="margin-top: 5%;">
-                <label>Most Sold Order<span style="margin-left: 129px;margin-right: 10px;">:</span></label>
-            </div>
-            <div style="margin-top: 5%;">
-                <label>Least Sold Order<span style="margin-left: 124px;margin-right: 10px;">:</span></label>
-            </div>
-            <div style="margin-top: 5%;">
-                <label>Most Engaged Store<span style="margin-left: 89px;margin-right: 10px;">:</span></label>
-            </div>
-            <div style="margin-top: 5%;">
-                <label>Total Shipments<span style="margin-left: 133px;margin-right: 10px;">:</span></label>
+            <div style="margin-top: -5%;"><label style="margin-left: 550px; padding-top: -150px;">Date: ${today()}</label>
             </div>
         </div>
+      <div style="margin-left: 15%;">
+            <h2 style="margin-left:6%; margin-top: 6%; text-indent:2em;">Quartely Sales Report</h2>
+            <div style="margin-top: 8%;">
+                <label style="margin-right: 40px;">Quartely Sales Report Period :</label>
+            </div>
 
-        <div class="row" style="font-size: 16px; margin-top: 50px; margin-left:-10px">
+            <div style="margin-top: 6%;">
+                <label>Total Product Sold<span style="margin-left: 110px; margin-right: 40px;">:</span>400</label>
+            </div>
+            <div style="margin-top: 6%;">
+                <label>Total Collection<span style="margin-left: 140px;margin-right: 40px;">:</span></label>
+            </div>
+            <div style="margin-top: 6%;">
+                <label>Most Sold Order<span style="margin-left: 129px;margin-right: 40px;">:</span></label>
+            </div>
+            <div style="margin-top: 6%;">
+                <label>Least Sold Order<span style="margin-left: 124px;margin-right: 40px;">:</span></label>
+            </div>
+            <div style="margin-top: 6%;">
+                <label>Most Engaged Store<span style="margin-left: 89px;margin-right: 40px;">:</span></label>
+            </div>
+            <div style="margin-top: 6%;">
+                <label>Total Shipments<span style="margin-left: 133px;margin-right: 40px;">:</span></label>
+            </div>
+        </div>
+
+        <div class="row" style="font-size: 16px; margin-top: 100px; margin-left:-10px">
             <div class="column">ORDERS</div>
             <div class="column">WORKING HOURS</div>
             <div class="column">TRAIN TRANSPORTS</div>
             <div class="column">TRUCK TRANSPORTS</div>
             <div class="column">PRODUCT SALES</div>
-            <!-- <div class="column">CUSTOMERS</div>
-            <div class="column">EXPECTED_ARR</div> -->
         </div>
 
-        <div class="row" style="font-size: 16px; font-weight: bold;  margin-left:-10px;">
+        <div class="row" style="font-size: 16px; font-weight: bold;margin-top: 15px;  margin-left:-10px;">
             <div class="column">14K</div>
             <div class="column">2.0K</div>
             <div class="column">1.650K</div>
             <div class="column">76.0</div>
-            <div class="column">78.0</div>
+            <div class="column">${totalProducts[0]['count']}</div>
             <!-- <div class="column">2</div>
             <div class="column">2.6M</div> -->
         </div>
 
-        <div class="row" style="font-size: 16px; font-weight: bold;  margin-left:-10px;">
+        <div class="row" style="font-size: 16px; font-weight: bold;  margin-top:10px; margin-left:-10px;">
             <div class="column">&#8593; 37.2%</div>
             <div class="column">&#8593; 19.1%</div>
             <div class="column">&#8593; 21.0%</div>
             <div class="column">&#8593; 35.7%</div>
-            <div class="column">&#8593; 69.6%</div>
+            <div class="column" style="color:green">&#8593; ${findPercentage(totalProducts[0]['count'], totalProducts[1]['count'])}%</div>
             <!-- <div class="column">&#8593; N/A</div>
             <div class="column">&#8593; 2.3%</div> -->
         </div>

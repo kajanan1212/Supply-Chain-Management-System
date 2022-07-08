@@ -13,7 +13,7 @@ class OrderedProduct extends Component {
         const id = await this.props.customer_id;
         // console.log(id)
         await customerServices.getHistory(id).then((response) => {
-            // console.log(typeof (response))
+            console.log(response)
             const arranged = groupByAttr(response.data, 'order_id')
             this.setState({ orders: arranged })
 

@@ -20,6 +20,9 @@ app.use("/store", store);
 const admin = require('./routes/admin');
 app.use("/admin", admin);
 
+const qsr = require('./routes/qsr');
+app.use("/admin/qsr", qsr);
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.listen(3001, () => {

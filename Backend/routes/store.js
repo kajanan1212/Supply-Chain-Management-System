@@ -52,8 +52,14 @@ router.post('/ordersontrain', (req, res) => {
 
 router.get('/scheduletruck', (req, res) => {
     const store_id = req.query[0];
-    const sql = ["select * from routes natural join leads where store_id=" + db.escape(store_id) + "", "select * from ((leads left outer join routes using(route_id)) left outer join transports using(route_id)) left outer join customer_order using(order_id) where (state='routescheduled' and store_id=" + db.escape(store_id) + ")", "select * from (truck natural join owns) where truck_id not in  (select truck_id from truck_schedule where (state='ondelivery' or state='scheduled') ) and store_id=" + db.escape(store_id) + "",
-    "select * from driver where driver_id in (select worker_id from store left outer join hires using(store_id) where hires.workerType = 'driver' and store.store_id = " + db.escape(store_id) + " and hires.worker_id not in(select * from(select driver_id from truck_schedule where store_id = " + db.escape(store_id) + " order by date_time desc limit 1) as last_scheduled_driver)) ",
+    const sql = ["select * from routes natural join leads where store_id=" + db.escape(store_id) + "",
+
+    "select * from ((leads left outer join routes using(route_id)) left outer join transports using(route_id)) left outer join customer_order using(order_id) where (state='routescheduled' and store_id=" + db.escape(store_id) + ")",
+
+    "select * from (truck natural join owns) where truck_id not in  (select truck_id from truck_schedule where (state='ondelivery' or state='scheduled') ) and store_id=" + db.escape(store_id) + "",
+
+    "select * from driver where driver_id in (select worker_id from store left outer join hires using(store_id) where hires.workerType = 'driver' and store.store_id = " + db.escape(store_id) + " and hires.worker_id not in(select * from(select driver_id from truck_schedule where store_id = " + db.escape(store_id) + " order by date_time desc limit 1) as last_scheduled_driver))",
+
     "select worker_id as assistant_id from store left outer join hires using(store_id) where hires.workerType = 'assistant' and store.store_id = " + db.escape(store_id) + " and((hires.worker_id not in (select * from(select assistant_id from(truck_schedule left outer join assistant using(assistant_id)) left outer join hires on assistant.assistant_id = hires.worker_id where hires.workerType = 'assistant' and hires.store_id = " + db.escape(store_id) + " order by date_time desc limit 2) as last_scheduled_assistant)) or (1 not in(select * from(select  count(assistant_id) from (select distinct assistant_id from (select assistant_id from (truck_schedule left outer join assistant using(assistant_id)) left outer join hires on assistant.assistant_id = hires.worker_id where hires.workerType = 'assistant' and hires.store_id = " + db.escape(store_id) + " order by date_time desc limit 2) as t1) as t2) as t3)))"]
     db.query(sql.join(';'), (err, result) => {
         res.send(result);
@@ -61,16 +67,17 @@ router.get('/scheduletruck', (req, res) => {
     })
 })
 
+//Trigger added 2
 router.post('/scheduletruck', (req, res) => {
     const { truck_id, assistant, driver_id, route_id, products } = req.body;
     const scheduleID = getUniqId('ts');
     const contains = products.map(pro => { return "Insert into contains(truck_s_id,order_id) values('" + scheduleID + "','" + pro.order_id + "')" })
-    const order = products.map(pro => { return "UPDATE customer_order set state='truckscheduled' where order_id='" + pro.order_id + "'" })
-    const tempSQL = contains.concat(order);
+    // const order = products.map(pro => { return "UPDATE customer_order set state='truckscheduled' where order_id='" + pro.order_id + "'" })
+    // const tempSQL = contains.concat(order);
     const sql1 = "insert into truck_schedule(`truck_s_id`, `truck_id`, `route_id`, `driver_id`, `assistant_id`) VALUES ('" + scheduleID + "', '" + truck_id + "', '" + route_id + "', '" + driver_id + "', '" + assistant + "')";
-    tempSQL.push(sql1);
-    console.log(tempSQL)
-    db.query(tempSQL.join(';'), (err, result) => {
+    contains.push(sql1);
+    console.log(contains)
+    db.query(contains.join(';'), (err, result) => {
         res.send(result);
     })
 })
