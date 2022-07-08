@@ -23,7 +23,8 @@ class DriverOnTrip extends Component {
         const newState = (state === "scheduled") ? "ondelivery" : 'end';
         storeService.changeState(truck_s_id, newState, driver_id, assistant_id)
             .catch(err => alert('Something went wrong'))
-            .then((result) => window.location.reload())
+            .then((result) => location.reload())
+        window.location.reload();
     }
 
     render() {

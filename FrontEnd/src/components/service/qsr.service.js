@@ -1,9 +1,7 @@
 import axios from "axios";
 
-
-const getOrderToSetRoute = (storeID) => {
-    // console.log(storeID)
-    return axios.get('http://localhost:3001/store/setroutes', { params: storeID });
+const getTotalProducts = () => {
+    return axios.get('http://localhost:3001/admin/qsr/totalproducts');
 }
 
 const setRoutes = (data) => {
@@ -12,8 +10,11 @@ const setRoutes = (data) => {
 }
 
 const storeService = {
-    getOrderToSetRoute,
+    getTotalProducts,
     setRoutes,
 };
 
 export default storeService;
+
+
+// const totalProducts = axios.get('http://localhost:3001/admin/QSR/totalproducts').then(res => console.log(res))
