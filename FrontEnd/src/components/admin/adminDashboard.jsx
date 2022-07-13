@@ -10,7 +10,8 @@ class AdminDashboard extends Component {
     state = {
         totalStores: 0,
         totalTrains: 0,
-        totalProducts: 0
+        totalProducts: 0,
+        qsr_validity: { year: '', part: 0 }
     }
     componentDidMount() {
         adminServices.getDetails().then((response) => {
@@ -22,8 +23,12 @@ class AdminDashboard extends Component {
         });
         // console.log(this.state)
     }
-
+    handleQSRYear = (e) => {
+        let name = e.target.name
+        this.setState({ name: e.target.value })
+    }
     render() {
+
         return (
             <div className='mx-4 my-4'>
                 <div className='container'>
@@ -59,7 +64,32 @@ class AdminDashboard extends Component {
                         </div>
                         <div className="col mx-5 my-4 rounded-3  border border-3 border-dark">
                             <h1 className='pt-5'>QSR</h1>
-                            {<QSR />}
+                            {/* <button className='btn btn-primary mb-4 mt-4 rounded-pill px-5' onClick={openProp}> */}
+                            <button className='btn btn-primary mb-4 mt-4 rounded-pill px-5' data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Calculate QSR
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Quartely Sales Report Period</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="input-group">
+                                    <span class="input-group-text">YEAR and PART</span>
+                                    <input type="text" aria-label="First name" class="form-control" name="year" onChange={this.handleQSRYear} />
+                                    <input type="text" aria-label="Last name" class="form-control" name='part' onChange={this.handleQSRYear} />
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <Link to="/admin/qsr" state={this.state.qsr_validity}><button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button></Link>
+                            </div>
                         </div>
                     </div>
                 </div>

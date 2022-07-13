@@ -58,10 +58,10 @@ class Navbar extends React.Component {
                                     <Link className="nav-link fw-bold" to="/store/neworder">New Orders</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link fw-bold" aria-current="page" to="/store/finishedorder">Scheduled Orders</Link>
+                                    <Link className="nav-link fw-bold" aria-current="page" to="/store/scheduledorder">Scheduled Orders</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link fw-bold" aria-current="page" to="/store/scheduledorder">Finished Orders</Link>
+                                    <Link className="nav-link fw-bold" aria-current="page" to="/store/finishedorder">Finished Orders</Link>
                                 </li>
                             </ul>}
                     </div>

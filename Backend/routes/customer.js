@@ -16,7 +16,7 @@ router.get('/history', (req, res) => {
     // console.log(customer_id)
     const sql = "select * from view_customer_with_orders left outer join view_product_with_orders using(order_id) where (view_customer_with_orders.customer_id = ? and order_id is not null) order by date_time desc;";
     db.query(sql, [customer_id['0']], (err, result) => {
-        console.log(result)
+        // console.log(result)
         res.send(result)
     })
 });

@@ -20,10 +20,10 @@ class ScheduleTruck extends Component {
     async componentDidMount() {
         await storeService.getAllRoutes(this.props.store_id).then((response) => {
             // const arranged = groupByAttr(response.data, 'order_id')
-            // console.log(response.data[1])
+            // console.log(response.data)
             const arranged = groupByAttr(response.data[1], 'route_id');
-            this.setState({ routes: response.data[0], orders: arranged, trucks: response.data[2], drivers: response.data[3], assistants: response.data[4] })
-            console.log(response.data)
+            this.setState({ routes: response.data[0], orders: arranged, trucks: response.data[2], drivers: response.data[4], assistants: response.data[3] })
+            // console.log(response.data)
         });
     }
     handleRouteChange = (e) => {
@@ -55,7 +55,7 @@ class ScheduleTruck extends Component {
     }
 
     render() {
-        console.log(this.state.assistants)
+        // console.log(this.state.assistants)
         return (
             <div>
                 <div className='d-flex justify-content-center'>
@@ -119,8 +119,10 @@ class ScheduleTruck extends Component {
                                     <label htmlFor="" className="form-label">Driver </label>
                                     <select className="form-select" name="truckSelect" id="truckSelect" onChange={(e) => this.handleDriverChange(e)}>
                                         <option hidden>Select Truck Here....</option>
+
                                         {this.state.drivers.map(driver => (
-                                            <option value={driver.driver_id} key={driver.driver_id}>{driver.first_name}(driver_id:{driver.driver_id})</option>
+                                            // console.log(driver.driver_id)
+                                            < option value={driver.driver_id} key={driver.driver_id} > {driver.first_name}(driver_id:{driver.driver_id})</option>
                                         ))}
                                     </select>
                                 </div>

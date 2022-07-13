@@ -24,6 +24,9 @@ import SetRoutes from './components/store/setRoutes';
 import OrdersOnTrain from './components/store/ordersOnTrain';
 import DriverOnTrip from './components/store/driverOnTrip';
 import LoadToTrain from './components/admin/loadtotrain';
+import QSR from './components/admin/QSR';
+import FinishedOrders from './components/store/finishedOrder';
+import ScheduledOrder from './components/store/scheduledOrders';
 
 class App extends React.Component {
   state = { customer: [], role: '' }
@@ -32,7 +35,7 @@ class App extends React.Component {
     try {
       let token = authService.getCurrentUser();
       const decToken = jwt_decode(token.accessToken);
-      console.log(token.role)
+      // console.log(token.role)
       this.setState({ customer: decToken.user, role: token.role })
     }
     catch {
@@ -53,6 +56,7 @@ class App extends React.Component {
         <Route path='/admin/pastorders' element={<PastOrders />} />
         <Route path='/admin/neworder' element={<NewOrders />} />
         <Route path='/admin/scheduledorder' element={<ScheduledOrders />} />
+        <Route path='/admin/qsr' element={<QSR />} />
         <Route path="*" element={<Navigate to="/admin" replace />} />
       </Routes >
       <Footer />
@@ -66,8 +70,8 @@ class App extends React.Component {
         <Route path='/store/driverondelivery' element={<DriverOnTrip store_id={this.state.customer.store_id} />} />
         <Route path='/store/ordersontrain' element={<OrdersOnTrain store_id={this.state.customer.store_id} />} />
         <Route path='/store/neworder' element={<OrderedProduct store_id={this.state.customer.store_id} />} />
-        <Route path='/store/finishedorder' element={<AddProduct store_id={this.state.customer} />} />
-        <Route path='/store/scheduledorder' element={<AddProduct store_id={this.state.customer} />} />
+        <Route path='/store/finishedorder' element={<FinishedOrders store_id={this.state.customer.store_id} />} />
+        <Route path='/store/scheduledorder' element={<ScheduledOrder store_id={this.state.customer.store_id} />} />
         <Route path='/store/scheduletruck' element={<ScheduleTruck store_id={this.state.customer.store_id} />} />
         <Route path='/store/addnewworker' element={<RegisterWorker store_id={this.state.customer.store_id} />} />
         <Route path="*" element={<Navigate to="/store" />} />
