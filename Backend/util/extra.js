@@ -226,9 +226,53 @@ DELIMITER;
 
 CALL select_drivers('store_fd07fd48ae073554');
 
---GET not consicutive every Assistant
+-- ----FROM kajanan
+use buymore;
 
+SET @UsrYear = '2022';
+SET @UsrQuarter = 1;
 
+create function IsRequiredQuarter(date_time datetime)
+returns int deterministic
+return year(date_time) =@UsrYear and quarter(date_time) =@UsrQuarter;
 
+###Period
+# start date of nth quarter
+select  makedate(@UsrYear, 1) + interval @UsrQuarter quarter - interval 1 quarter;
 
+# end date of nth quarter
+select  makedate(@UsrYear, 1) + interval @UsrQuarter quarter - interval 1 day;
 
+###Total product sold
+select sum(count) as total_product_sold from customer_order left outer join has using(order_id) where IsRequiredQuarter(date_time);
+
+###Total collection
+select sum(total_price) as total_collection from customer_order where IsRequiredQuarter(date_time);
+
+###Most sold order
+select product_id from customer_order left outer join has using(order_id) where IsRequiredQuarter(date_time) group by product_id order by sum(count) desc limit 1;
+
+###Least sold order
+select product_id from customer_order left outer join has using(order_id) where IsRequiredQuarter(date_time) group by product_id order by sum(count) limit 1;
+
+###Most engaged store
+select store_id from((customer_order left outer join transports using(order_id)) left outer join routes using(route_id)) left outer join leads using(route_id) where IsRequiredQuarter(date_time) group by store_id order by count(store_id) desc limit 1;
+
+###Total shipments
+select count(*) as total_shipments from customer_order where IsRequiredQuarter(date_time) and state = 'delivered';
+
+####Bottom
+### Orders
+select count(*) as orders from customer_order where  IsRequiredQuarter(date_time);
+
+###Working hours
+select sum(worked_hours) / 2 as working_hours from working_hour left outer join truck_schedule using(truck_s_id) where IsRequiredQuarter(date_time);
+
+###Train transports
+select count(order_id) as train_transports from train_schedule where IsRequiredQuarter(date_time) and state = 'end';
+
+###Truck transports
+select count(truck_s_id) as truck_transports from truck_schedule where IsRequiredQuarter(date_time) and state = 'end';
+
+###Product sales
+select sum(count) as product_sales from customer_order left outer join has using(order_id) where IsRequiredQuarter(date_time);

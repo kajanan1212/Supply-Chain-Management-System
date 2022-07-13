@@ -21,10 +21,7 @@ class PastOrders extends Component {
                     <thead>
                         <tr>
                             <th scope="col">OrderID</th>
-                            <th scope="col">ProductID</th>
                             <th scope="col">time</th>
-                            <th scope="col">Train</th>
-                            <th scope="col">Store</th>
                             <th scope="col">State</th>
                             <th scope="col">Capacity</th>
                         </tr>
@@ -34,10 +31,7 @@ class PastOrders extends Component {
                         {this.state.newOrders.map(order => (
                             <tr key={order[0].order_id}>
                                 <td className='col-2'>{order[0].order_id}</td>
-                                <td className='col-2'>{order.map(pro => (<div>{pro.product_id} <br></br> </div>))}</td>
-                                <td className='col-2'>{order[0].date_time}</td>
-                                <td className='col-1'>{order[0].train_name}</td>
-                                <td className='col-1'>{order[0].destination}</td>
+                                <td className='col-2'>{order[0].date_time.split('.')[0].replace('T', ' -- ')}</td>
                                 <td className='col-1'>{order[0].state}</td>
                                 <td className='col-1'>{order[0].capacity}</td>
                             </tr>

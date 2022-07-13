@@ -32,7 +32,7 @@ class TrainSchedule extends React.Component {
                                 {/* <td>6.00 A.M - 9.00 A.M</td> */}
                                 {/* <td>{train.start_time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</td> */}
                                 <td>{train.start_time} - {train.end_time}</td>
-                                <td>{train.capacity}m<sup>3</sup></td>
+                                <td>{train.compartmentcapacity}m<sup>3</sup></td>
                                 <td>{train.stops}</td>
                             </tr>
                         )
