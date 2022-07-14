@@ -1,12 +1,5 @@
 # Supply-Chain-Management-System
 
-## Contributors
-• Sivakajan Sivaparan <br>
-• Sakeerthan Thijakarasa <br>
-• Kajanan Selvanesan <br>
-• Laksika Tharmalingam 
-
-
 ## Description
 
 This is a system for monitoring and analytics of a production company. The company has several products and customers (wholesalers, retailers and end customers). The company has a supply chain that uses the railway system to distribute their products to the customers islandwide. 
@@ -76,3 +69,9 @@ Create a database with a desired name (assume ‘db_buymore’). Open the mysql 
 •	Terminal must be running throughout the process. If the terminal crashes for any reason restart the terminal again and “npm start”.
 
 •	If the server takes too long to respond or some undesired error occurs, close the running server in the terminal, and go to /backend directory and type “npm restart” to rerun the backend server. Then go to /frontend directory and type “npm start” to start the program again.
+
+## Contributors
+• Sivakajan Sivaparan <br>
+• Sakeerthan Thijakarasa <br>
+• Kajanan Selvanesan <br>
+• Laksika Tharmalingam 
