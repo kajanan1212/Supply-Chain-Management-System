@@ -35,7 +35,7 @@ class OrderedProduct extends Component {
         }
     }
     cancelOrder = (order) => {
-        customerServices.cancelOrder(order).then(res => console.log(res))
+        customerServices.cancelOrder(order).then(res => window.location.reload())
     }
     render() {
         if (this.state.orders.length === 0) return <h1 className='d-flex justify-content-center text-primary mt-2'>No Orders Yet</h1>;
@@ -68,7 +68,7 @@ class OrderedProduct extends Component {
                                 <div className="col">
                                     <h4 className='text-bold'>Order Detail</h4>
                                     <h6>Order Date: {x.toDateString()}</h6>
-                                    <h6>Total Price:  Rs. {order[0].cost}</h6>
+                                    <h6>Total Price:  Rs. {order[0].total_price}</h6>
                                     <h6>Total Capacity: {order[0].capacity} m<sup>3</sup></h6>
                                 </div>
                             </div>

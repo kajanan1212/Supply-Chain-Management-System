@@ -9,18 +9,23 @@ const setRoutes = (data) => {
     return axios.post('http://localhost:3001/store/setroutes', data);
 }
 
-// const getQSRperiod = (data) => {
-//     return axios.get('http://localhost:3001/admin/qsr/getQSRperiod', { params: data });
-// }
+const getQSR_OVN = (data) => {
+    // console.log(data)
+    return axios.get('http://localhost:3001/admin/qsr/getQSR_OVN', { params: data });
+}
 
 const getAllDetails = (data) => {
     return axios.get('http://localhost:3001/admin/qsr/getAllDetails', { params: data });
 }
 
+const getReport2 = (data) => {
+    return axios.get('http://localhost:3001/admin/qsr/reports', { params: data });
+}
+
 const storeService = {
-    // getTotalProducts,
+    getReport2,
     setRoutes,
-    // getQSRperiod,
+    getQSR_OVN,
     getAllDetails,
 };
 

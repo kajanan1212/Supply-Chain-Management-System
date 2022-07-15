@@ -84,7 +84,7 @@ class ScheduleTrainTo extends Component {
         adminServices.scheduleOrdersToTrain(orderIDs, this.state.Orders[0].train_id)
             .catch(err => alert('Something went wrong'))
             .then(res => console.log(res))
-        // .then(window.location = '/admin')
+            .then(window.location.reload())
     }
 
 }

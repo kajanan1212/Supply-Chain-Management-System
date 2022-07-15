@@ -27,6 +27,7 @@ import LoadToTrain from './components/admin/loadtotrain';
 import QSR from './components/admin/QSR';
 import FinishedOrders from './components/store/finishedOrder';
 import ScheduledOrder from './components/store/scheduledOrders';
+import Reports from './components/admin/reports';
 
 class App extends React.Component {
   state = { customer: [], role: '' }
@@ -56,6 +57,7 @@ class App extends React.Component {
         <Route path='/admin/pastorders' element={<PastOrders />} />
         <Route path='/admin/neworder' element={<NewOrders />} />
         <Route path='/admin/scheduledorder' element={<ScheduledOrders />} />
+        <Route path='/admin/reports' element={<Reports />} />
         <Route path='/admin/qsr' element={<QSR />} />
         <Route path="*" element={<Navigate to="/admin" replace />} />
       </Routes >
