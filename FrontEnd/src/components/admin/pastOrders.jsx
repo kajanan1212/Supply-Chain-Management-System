@@ -27,7 +27,6 @@ class PastOrders extends Component {
                         </tr>
                     </thead>
                     <tbody>
-
                         {this.state.newOrders.map(order => (
                             <tr key={order[0].order_id}>
                                 <td className='col-2'>{order[0].order_id}</td>

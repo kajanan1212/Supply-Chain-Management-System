@@ -55,14 +55,10 @@ class AddProduct extends Component {
         }
         // console.log(dataa)
         adminServices.addProduct(dataa)
-
             // .catch(err => alert('Something went wrong'))
             .catch(err => console.log(err))
             .then(window.location.reload())
-
     }
-
-
 
     render() {
         return (

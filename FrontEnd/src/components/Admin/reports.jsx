@@ -14,6 +14,7 @@ export default class Reports extends Component {
         Driver: [],
         Assistent: [],
         Customer: [],
+        Trucks: [],
         pageSize: 8,
         currentPage: 1
     }
@@ -21,7 +22,7 @@ export default class Reports extends Component {
     async componentDidMount() {
         await qsr.getReport2()
             .then(response => {
-                this.setState({ items: response.data[0], Driver: response.data[1], Assistent: response.data[2], Customer: response.data[3] })
+                this.setState({ items: response.data[0], Driver: response.data[1], Assistent: response.data[2], Customer: response.data[3], Trucks: response.data[4] })
             })
     }
     handleCITYchange = (e) => {
@@ -167,6 +168,27 @@ export default class Reports extends Component {
                                     <tr key={item.email}>
                                         <td>{item.email}</td>
                                         <td>{item.total_order_count}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="col-6">
+                        <h5 className="m-3">Working hours of Truck</h5>
+                        <table className="table table-light">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Truck Name</th>
+                                    <th scope="col">Store Name</th>
+                                    <th scope="col">Used Hours</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.Trucks.map(item => (
+                                    <tr key={item.truck_number}>
+                                        <td style={{ paddingLeft: '10px' }}>{item.truck_number}</td>
+                                        <td>{item.store_name}</td>
+                                        <td>{item.used_hr}</td>
                                     </tr>
                                 ))}
                             </tbody>

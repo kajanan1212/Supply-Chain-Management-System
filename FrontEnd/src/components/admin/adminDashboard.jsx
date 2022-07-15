@@ -42,8 +42,6 @@ class AdminDashboard extends Component {
             <div className='mx-4 my-4'>
                 <div className='container'>
                     <h3>DashBoard</h3>
-
-
                     <div className="row  text-center">
                         <div className="col mx-5 my-4 rounded-3  border border-3 border-dark">
                             <h5 className='pt-4'>Total Stores</h5>
