@@ -65,7 +65,7 @@ router.get('/getQSR_OVN', (req, res) => {
     ]
     // const sql = ["SET @UsrYear = '2022'", "SET @UsrQuarter = 1", "select  makedate(@UsrYear, 1) + interval @UsrQuarter quarter - interval 1 quarter", "select  makedate(@UsrYear, 1) + interval @UsrQuarter quarter - interval 1 day"]
     db.query(sql.join(';'), (err, result) => {
-        console.log(result)
+        // console.log(result)
         res.send(result);
         // console.log(1)
         // console.log(result)
@@ -95,7 +95,7 @@ router.get('/report_route', (req, res) => {
     const { route, city } = req.query;
     sql = "select order_id, date_time, total_price, capacity, state from(((customer_order left outer join transports using(order_id)) left outer join routes using(route_id)) left outer join leads using(route_id)) left outer join store using(store_id) where routes.destination = " + db.escape(route) + " and store.first_name =  " + db.escape(city) + "  limit 10"
     db.query(sql, (err, result) => {
-        console.log(sql)
+        // console.log(sql)
         res.send(result);
         // console.log(1)
         // console.log(result)

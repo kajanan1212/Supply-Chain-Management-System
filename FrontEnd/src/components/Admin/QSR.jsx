@@ -7,7 +7,7 @@ import QSR_OVN from './QSR_OVN';
 class QSR extends Component {
     state = {
         year: '2022',
-        part: 3,
+        part: 1,
         start_date: "N/A",
         end_date: "N/A",
         total_product_sold: "N/A",

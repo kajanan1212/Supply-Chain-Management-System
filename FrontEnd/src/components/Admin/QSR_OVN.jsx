@@ -6,7 +6,7 @@ class QSR_OVN extends Component {
         year: this.props.year,
         part: this.props.part,
         oldYear: '2022',
-        oldPart: 1,
+        oldPart: 2,
         orders: 'N/A',
         working_hours: 'N/A',
         train_transports: 'N/A',
