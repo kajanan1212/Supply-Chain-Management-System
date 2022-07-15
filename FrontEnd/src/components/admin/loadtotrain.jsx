@@ -70,8 +70,8 @@ class LoadToTrain extends Component {
     handleLoad = () => {
         // console.log(orderIDs, this.state.district)
         adminServices.LoadOrdersToTrain(this.state.loadedtrain)
+            .then(res => window.location.reload())
             .catch(err => alert('Something went wrong'))
-            .then(res => console.log(res))
     }
 }
 

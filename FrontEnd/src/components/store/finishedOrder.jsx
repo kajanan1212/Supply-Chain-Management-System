@@ -22,6 +22,7 @@ class FinishedOrders extends Component {
                             <th scope="col">OrderID</th>
                             <th scope="col">time</th>
                             <th scope="col">Address</th>
+                            <th scope="col">City</th>
                             <th scope="col">State</th>
                             <th scope="col">Worth(rs)</th>
                             <th scope="col">Capacity</th>
@@ -34,6 +35,7 @@ class FinishedOrders extends Component {
                                 {console.log(order)}
                                 <td className='col-2'>{order['order_id']}</td>
                                 <td className='col-2'>{order.date_time.split('.')[0].replace('T', ' -- ')}</td>
+                                <td className='col-1'>{order.address}</td>
                                 <td className='col-1'>{order.city}</td>
                                 <td className='col-1'>{order.state}</td>
                                 <td className='col-1'>{order.total_price}</td>

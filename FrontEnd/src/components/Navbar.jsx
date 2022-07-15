@@ -50,6 +50,9 @@ class Navbar extends React.Component {
                                 <li className="nav-item">
                                     <Link to='/admin/trainschedule' className="nav-link fw-bold">Scheduled Train</Link>
                                 </li>
+                                <li className="nav-item">
+                                    <Link to='/admin/reports' className="nav-link fw-bold">Reports</Link>
+                                </li>
 
                             </ul>}
                         {((this.props.user.length !== 0) && (this.props.role == 'store')) &&

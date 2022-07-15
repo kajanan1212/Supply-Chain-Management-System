@@ -11,9 +11,11 @@ class AdminDashboard extends Component {
         totalStores: 0,
         totalTrains: 0,
         totalProducts: 0,
-        qsr_validity: { year: '', part: 0 }
+        qsr_year: '',
+        qsr_part: 0
     }
     componentDidMount() {
+        if (localStorage.getItem('qsr')) localStorage.removeItem('qsr');
         adminServices.getDetails().then((response) => {
             console.log(response.data[2][0]['count'])
             this.setState({
@@ -24,8 +26,15 @@ class AdminDashboard extends Component {
         // console.log(this.state)
     }
     handleQSRYear = (e) => {
-        let name = e.target.name
-        this.setState({ name: e.target.value })
+        this.setState({ qsr_year: e.target.value })
+    }
+    handleQSRPart = (e) => {
+        const val = parseInt(e.target.value)
+        this.setState({ qsr_part: val })
+    }
+    handleNavigate = () => {
+        localStorage.setItem('qsr', JSON.stringify(this.state));
+        window.location = '/admin/qsr'
     }
     render() {
 
@@ -72,23 +81,23 @@ class AdminDashboard extends Component {
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Quartely Sales Report Period</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModalLabel">Quartely Sales Report Period</h5>
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                                <div class="input-group">
-                                    <span class="input-group-text">YEAR and PART</span>
-                                    <input type="text" aria-label="First name" class="form-control" name="year" onChange={this.handleQSRYear} />
-                                    <input type="text" aria-label="Last name" class="form-control" name='part' onChange={this.handleQSRYear} />
+                            <div className="modal-body">
+                                <div className="input-group">
+                                    <span className="input-group-text">YEAR and PART</span>
+                                    <input type="text" aria-label="First name" className="form-control" name="year" onChange={this.handleQSRYear} />
+                                    <input type="text" aria-label="Last name" className="form-control" name='part' onChange={this.handleQSRPart} />
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <Link to="/admin/qsr" state={this.state.qsr_validity}><button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button></Link>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={this.handleNavigate}>Save changes</button>
                             </div>
                         </div>
                     </div>

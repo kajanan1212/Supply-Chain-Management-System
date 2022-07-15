@@ -41,6 +41,15 @@ router.post('/', (req, res) => {
             const cost = req.body.cost;
             const capacity = req.body.capacity;
             const order_id = getUniqId('ord')
+
+            const sql4 = "insert into customer_order(order_id,total_price,capacity) values (?,?,?)";
+            db.query(sql4, [order_id, cost, capacity], (error, result) => {
+                if (error) {
+                    return connection.rollback(function () {
+                        throw error;
+                    });
+                }
+            });
             a.carts.forEach(element => {
                 const sql1 = "UPDATE product SET quantity=? WHERE product_id=?";
                 db.query(sql1, [element.quantity - element.count, element.product_id], (error, result) => {
@@ -59,6 +68,7 @@ router.post('/', (req, res) => {
                     }
                 });
             });
+
             const sql3 = "insert into places(customer_id,order_id,address,city,district) values(?,?,?,?,?)"
             db.query(sql3, [user.customer_id, order_id, a.address, a.city, a.district], (error, result) => {
                 if (error) {
@@ -67,14 +77,7 @@ router.post('/', (req, res) => {
                     });
                 }
             });
-            const sql4 = "insert into customer_order(order_id,total_price,capacity) values (?,?,?)";
-            db.query(sql4, [order_id, cost, capacity], (error, result) => {
-                if (error) {
-                    return connection.rollback(function () {
-                        throw error;
-                    });
-                }
-            });
+
         });
     });
 });
