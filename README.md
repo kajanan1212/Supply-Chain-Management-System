@@ -70,7 +70,7 @@ Create a database with a desired name (assume ‘db_buymore’). Open the mysql 
 
 •	If the server takes too long to respond or some undesired error occurs, close the running server in the terminal, and go to /backend directory and type “npm restart” to rerun the backend server. Then go to /frontend directory and type “npm start” to start the program again.
 
-## Contributors
+## Team Members
 <ul>
   <li>Sivakajan Sivaparan</li>
   <li>Sakeerthan Thijakarasa</li>
